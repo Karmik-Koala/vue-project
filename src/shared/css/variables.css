@@ -1,0 +1,21 @@
+:root{
+
+  /* Colors */
+  --white-rock: #e5e3cb;
+  --faded-jade: #428b8b;
+  --salmon: #fd926a;
+  --thunderbird: #cd391b;
+  --ferra: #5c4943;
+  --grandis: #ffd68b;
+
+  /* font-family */
+  
+
+
+  /* Font-size */
+  --font-small-caption: 12px; /* Tamaño de letra para subtítulos o pies de foto pequeños */
+  --font-small: 14px;    /* Tamaño de letra pequeño en píxeles */
+  --font-medium: 1rem;   /* Tamaño de letra mediano en rems */
+  --font-large: 20px;    /* Tamaño de letra grande en puntos */
+  --font-x-large: 24px;    /* Tamaño de letra grande en puntos */
+}
