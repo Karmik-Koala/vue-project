@@ -1,0 +1,10 @@
+name: Deploy
+on:
+  push:
+    branches: [main]
+jobs:
+  EC2-Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy
+        run : echo "Deploying..."
