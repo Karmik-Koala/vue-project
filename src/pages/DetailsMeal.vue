@@ -1,12 +1,40 @@
 <template>
-  <div>IMAGEN: {{ meal.images.REGULAR.url }}</div>
+  <div class="container">
+    <section class="meal-section">
+      <div class="meal-card">
+        <div class="meal-card-image">
+          <img src="https://insanelygoodrecipes.com/wp-content/uploads/2020/07/Cup-Of-Creamy-Coffee-500x500.png" alt="">
+        </div>
+        <div class="meal-card-info">
+          <span> Total Calories: {{ (meal.calories / 1000).toFixed(2) }} kcal</span>
+          <span> Carbs: {{ (meal.totalNutrients.CHOCDF.quantity).toFixed(2) }}</span>
+          <span> Fat: {{ (meal.totalNutrients.FAT.quantity).toFixed(2) }}</span>
+          <span> Proteins: {{ (meal.totalNutrients.PROCNT.quantity).toFixed(2) }}</span>
+        </div>
+      </div>
+      <div class="meal-info">
+        <h2>{{ meal.label }}</h2>
+        <h3> Ingredients list</h3>
+        <p v-for="ingredient in meal.ingredientLines"> {{ ingredient }}</p>
+        <h3> How to make it</h3>
+        <p> Process</p>
+      </div>
+    </section>
+    <section class="related">
+      <h3> You might also like </h3>
+      <div class="recipe-card"> </div>
+    </section>
+  </div>
+
+
+  <!-- <div>IMAGEN: {{ meal.images.REGULAR.url }}</div>
   <div>KILOCALORIAS: {{ (meal.calories / 1000).toFixed(2) }}</div>
   <div>CARBS: {{ (meal.totalNutrients.CHOCDF.quantity).toFixed(2) }}</div>
   <div>FAT: {{ (meal.totalNutrients.FAT.quantity).toFixed(2) }}</div>
   <div>PROTEIN: {{ (meal.totalNutrients.PROCNT.quantity).toFixed(2) }}</div>
 
   <div>TITULO RECETA: {{ meal.label }}</div>
-  <div>INGREDIENTES: {{ meal.ingredientLines }}</div>
+  <div>INGREDIENTES: {{ meal.ingredientLines }}</div> -->
 </template>
 
 <script>
@@ -766,4 +794,41 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
+
+.container {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Mukta', sans-serif;
+  padding: 30px;
+
+  & .meal-section {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+
+    & .meal-card {
+      display: flex;
+      flex-direction: column;
+      background: gray;
+
+      /* height: 500px; */
+      & .meal-card-image {
+        padding: 20px;
+      }
+
+      & img {
+        height: 300px;
+        width: 300px;
+      }
+
+      & .meal-card-info {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+      }
+    }
+  }
+}
+</style>
