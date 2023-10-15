@@ -1,8 +1,16 @@
 <template>
-  <div>MEAL DETAILS</div>
+  <div>IMAGEN: {{ meal.images.REGULAR.url }}</div>
+  <div>KILOCALORIAS: {{ (meal.calories / 1000).toFixed(2) }}</div>
+  <div>CARBS: {{ (meal.totalNutrients.CHOCDF.quantity).toFixed(2) }}</div>
+  <div>FAT: {{ (meal.totalNutrients.FAT.quantity).toFixed(2) }}</div>
+  <div>PROTEIN: {{ (meal.totalNutrients.PROCNT.quantity).toFixed(2) }}</div>
+
+  <div>TITULO RECETA: {{ meal.label }}</div>
+  <div>INGREDIENTES: {{ meal.ingredientLines }}</div>
 </template>
 
 <script>
+
 export default {
   name: "DetailsMeal",
   data() {
@@ -752,6 +760,9 @@ export default {
       },
     };
   },
+  methods: {
+
+  }
 };
 </script>
 
