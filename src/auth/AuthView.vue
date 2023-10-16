@@ -1,8 +1,8 @@
 <template>
   <div>
     <form action="">
-      <div class="form-group"><label for="email">Email</label><input type="text" id="email" v-model="email"></div>
-      <div class="form-group"><label for="password">Password</label><input type="password" id="password" v-model="password"></div>
+      <div class="form-group"><label for="email">Email</label><input id="email" v-model="email" type="text"></div>
+      <div class="form-group"><label for="password">Password</label><input id="password" v-model="password" type="password"></div>
       <button type="submit">Submit</button>
     </form>
   </div>
