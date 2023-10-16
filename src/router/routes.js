@@ -1,4 +1,4 @@
-import ListMeals from "../pages/ListMeals.vue";
+import ListMeals from "../pages/ListMeals/ListMeals.vue";
 
 export const routes = [
   {
