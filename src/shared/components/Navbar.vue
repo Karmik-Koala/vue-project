@@ -75,7 +75,6 @@ export default {
 
     & .company-name {
       margin: 0;
-      margin-left: 20px;
       font-family: var(--font-family-archivo-black);
       font-size: var(--font-size-nl);
       background: linear-gradient(
@@ -200,8 +199,6 @@ export default {
     & .container-logo {
       padding: 0 30px;
       & .logo {
-        /* width: 80px;
-        height: 80px; */
         border-radius: 50%;
       }
 
