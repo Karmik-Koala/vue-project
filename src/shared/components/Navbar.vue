@@ -58,7 +58,7 @@ export default {
   box-sizing: border-box;
   background-color: var(--color-faded-jade);
   font-size: var(--font-size-xs);
-  padding: 20px 30px;
+  padding: 0 30px;
   border-top: 6px solid var(--color-grandis);
   display: flex;
   justify-content: space-between;
@@ -68,8 +68,8 @@ export default {
     display: flex;
     align-items: center;
     & .logo {
-      width: 50px;
-      height: 50px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
     }
 
@@ -91,7 +91,7 @@ export default {
   & .navbar-list {
     font-size: var(--font-size-xs);
     position: absolute;
-    top: 75px;
+    top: 100px;
     left: 0;
     background-color: var(--color-faded-jade);
     box-sizing: border-box;
@@ -197,13 +197,11 @@ export default {
 
 @media screen and (width >= 768px) {
   .header-container {
-    padding: 10px 30px;
-
     & .container-logo {
       padding: 0 30px;
       & .logo {
-        width: 80px;
-        height: 80px;
+        /* width: 80px;
+        height: 80px; */
         border-radius: 50%;
       }
 
