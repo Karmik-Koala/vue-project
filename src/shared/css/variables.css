@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:wght@300;400;900&display=swap');
+
 :root{
   --color-grandis: #ffd68b;
   --color-white-rock: #e5e3cb;
@@ -8,8 +10,8 @@
   --color-white: #fff;
   --color-gray: #e2e2e2;
   --color-gray-light: #f0f0f0;
-  --font-family-content: "Mukta", sans-serif;
-  --font-family-title: "Glory", sans-serif;
+  --font-family-roboto: 'Roboto', sans-serif;
+  --font-family-archivo-black: 'Archivo Black', sans-serif;
   --font-size-xs: 1rem;
   --font-size-sm: 1.1rem;
   --font-size-md: 1.3rem;
