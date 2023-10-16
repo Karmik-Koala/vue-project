@@ -15,7 +15,7 @@
       <div class="meal-info">
         <h2>{{ meal.label }}</h2>
         <h3> Ingredients list</h3>
-        <p v-for="ingredient in meal.ingredientLines"> {{ ingredient }}</p>
+        <p v-for="(ingredient, index) in meal.ingredientLines" :key=index> {{ ingredient }}</p>
         <h3> How to make it</h3>
         <p> Process</p>
       </div>
