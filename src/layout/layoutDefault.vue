@@ -1,10 +1,11 @@
 <template>
-  <div>
-    <Navbar />
+  <div class="body">
+      <Navbar />
     <!-- Content of the page -->
-    <div class="container">
+    <main class="main">
       <RouterView />
-    </div>
+    </main>
+    <footer class="footer">TODO: FOOTER</footer>
   </div>
 </template>
 
@@ -22,7 +23,10 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  padding: 5%;
+.body{
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
 }
 </style>
