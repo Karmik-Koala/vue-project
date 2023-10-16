@@ -25,15 +25,6 @@ export default {
       filters: {},
     };
   },
-  //   async mounted() {
-  //     const filters = {
-  //       q: "coffee and croissant",
-  //       //   diet: "balanced",
-  //     };
-
-  //     const data = await listMeals(filters);
-  //     console.log(data);
-  //   },
   methods: {
     setFilter(filter, value) {
       this.filters = {
