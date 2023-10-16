@@ -76,7 +76,7 @@ export default {
     & .company-name {
       margin: 0;
       margin-left: 20px;
-      font-family: var(--font-family-content);
+      font-family: var(--font-family-archivo-black);
       font-size: var(--font-size-nl);
       background: linear-gradient(
         to right,
@@ -107,7 +107,7 @@ export default {
       padding: 20px 30px;
 
       & .navbar-links {
-        font-family: var(--font-family-content);
+        font-family: var(--font-family-roboto);
         text-decoration: none;
         font-weight: bold;
         color: var(--color-white);
