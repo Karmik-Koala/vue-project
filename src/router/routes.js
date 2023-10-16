@@ -7,7 +7,7 @@ export const routes = [
     component: ListMeals,
   },
   {
-    path: "/meal",
+    path: "/details/:id",
     name: "detailsMeal",
     // route level code-splitting
     // this generates a separate chunk (About.[hash].js) for this route

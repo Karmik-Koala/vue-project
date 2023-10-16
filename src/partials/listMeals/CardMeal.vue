@@ -9,12 +9,12 @@
       </svg>
     </div>
     <div class="card-img"></div>
-    <a href="#">
+    <RouterLink :to="`/details/${meal.id}`">
       <div
         class="card-img--hover"
         :style="`background-image: url(${meal.image});`"
       ></div>
-    </a>
+    </RouterLink>
     <div class="card-info">
       <h3 class="card-title">{{ meal.label }}</h3>
     </div>
@@ -22,8 +22,13 @@
 </template>
 
 <script>
+import { RouterLink } from "vue-router";
+
 export default {
   name: "CardMeal",
+  components: {
+    RouterLink,
+  },
   props: {
     meal: {
       type: Object,
