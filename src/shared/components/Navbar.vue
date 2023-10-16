@@ -12,11 +12,10 @@
         <span></span>
       </label>
       <ul class="navbar-list">
-        <li>
-          <a class="navbar-links" href="#home">Home</a>
-        </li>
-        <li>
-          <a class="navbar-links" href="#favorites">Favorites</a>
+        <li v-for="(route, index) in routes" :key="index">
+          <RouterLink class="navbar-links" :to="route.path">
+            {{ route.label }}
+          </RouterLink>
         </li>
       </ul>
     </nav>
@@ -24,13 +23,23 @@
 </template>
 
 <script>
+import { RouterLink } from "vue-router";
 import Logo from "@/assets/images/logo-app.webp";
 
 export default {
   name: "NavbarComponent",
+  components: {
+    RouterLink,
+  },
   data() {
     return {
       logoPath: Logo,
+      routes: [
+        {
+          label: "Favorites",
+          path: "/favorites",
+        },
+      ],
     };
   },
 };
