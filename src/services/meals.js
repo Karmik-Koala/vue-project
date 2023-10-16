@@ -1,4 +1,6 @@
-import { CONSTANTS } from "../constants";
+import { getDocs, collection } from "firebase/firestore";
+import { db } from "../shared/database/FirebaseConfig";
+import { CONSTANTS } from "@/constants";
 const { API } = CONSTANTS;
 
 export const getListMeals = async (filters) => {
@@ -18,4 +20,11 @@ export const getListMeals = async (filters) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const getListFavoriteMeals = async () => {
+  const itemsCollection = collection(db, "favorites");
+  const snapshot = await getDocs(itemsCollection);
+
+  return snapshot;
 };
