@@ -1,4 +1,5 @@
 import ListMeals from "../pages/ListMeals/ListMeals.vue";
+import AuthView from "../auth/AuthView.vue"
 
 export const routes = [
   {
@@ -14,4 +15,9 @@ export const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import("../pages/DetailsMeal.vue"),
   },
+  {
+    path: "/login",
+    name: "login",
+    component: AuthView
+  }
 ];
