@@ -54,7 +54,7 @@ export default {
         const authCredential = await signInWithEmailAndPassword(auth, this.email, this.password)
         store.setUserAuth(authCredential.user)
       } catch (error) {
-        console.error(error.message)
+        console.error(error.message);
       }
     },
     async onSubmit() {

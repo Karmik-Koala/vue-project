@@ -17,9 +17,12 @@
 </template>
 
 <script>
+import { CONSTANTS } from "@/constants";
 import { getListMeals } from "../../services/meals.js";
 import SearchInput from "../../partials/listMeals/SearchInput.vue";
 import ListRender from "../../partials/listMeals/ListRender.vue";
+
+const { API } = CONSTANTS;
 
 export default {
   name: "ListMeals",
@@ -46,6 +49,10 @@ export default {
         label: item.recipe.label,
         image: item.recipe.image,
         totalNutrients: item.recipe.totalNutrients,
+        id: item._links.self.href.slice(
+          API.BASE_URL.length + 1,
+          item._links.self.href.indexOf("?type")
+        ),
       }));
     },
   },
