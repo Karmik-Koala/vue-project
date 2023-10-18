@@ -1,7 +1,9 @@
 <template>
   <header class="header-container">
     <div class="container-logo">
-      <img class="logo" :src="logoPath" alt="logo..." />
+                <RouterLink class="navbar-links" :to="'/'">
+              <img class="logo" :src="logoPath" alt="logo..." />
+            </RouterLink>
       <h1 class="company-name">MealMate</h1>
     </div>
     <nav class="navbar-container">
@@ -17,6 +19,14 @@
             {{ route.label }}
           </RouterLink>
         </li>
+        <li>
+
+          <RouterLink v-if="getUserAuth === ''" class="navbar-links" :to="{name: 'login'}">
+            {{ 'Sign in' }}
+          </RouterLink>
+          
+          <button v-else class="navbar-links">Sing out</button>
+        </li>
       </ul>
     </nav>
   </header>
@@ -24,7 +34,9 @@
 
 <script>
 import { RouterLink } from "vue-router";
+import { mapStores, mapState } from "pinia";
 import Logo from "@/assets/images/logo-app.webp";
+import { useAuthStore } from "../../auth/stores/authStore";
 
 export default {
   name: "NavbarComponent",
@@ -42,6 +54,12 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapState(useAuthStore, ['getUserAuth'])
+  },
+  methods: {
+    ...mapStores(useAuthStore)
+  }
 };
 </script>
 
@@ -220,4 +238,5 @@ export default {
     }
   }
 }
+
 </style>

@@ -9,6 +9,8 @@
             type="password"></div>
         <button type="submit" :disabled="!formIsValid" >LOGIN</button>
         <p>Don't have an account <span @click="toggleSignInToSignUp()">SIGN UP</span></p>
+        <button auth="google" @click="loginGoogle" ><img src="google-icon.png" alt=""></button>
+        <button auth="github" @click="loginGithub" ><img src="github-icon.png" alt=""></button>
       </form>
     </div>
     <div class="image-container">
@@ -18,11 +20,12 @@
 </template>
 
 <script>
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, GithubAuthProvider } from 'firebase/auth'
 import {useAuthStore} from './stores/authStore'
+import { mapState, mapActions } from 'pinia'
 import {EMAIL_PATTERN, PASSWORD_MIN_LENGTH} from './constants/loginRestrictions'
 
-const store = useAuthStore()
+
 
 export default {
   name: 'AuthView',
@@ -34,6 +37,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(useAuthStore, ['getUserAuth']),
     formIsValid() {
       return (
         this.mailIsValid &&
@@ -48,11 +52,12 @@ export default {
     }
   },
   methods: {
+    ...mapActions(useAuthStore, ['setUserAuth']),
     async authUser() {
       try {
         const auth = getAuth()
         const authCredential = await signInWithEmailAndPassword(auth, this.email, this.password)
-        store.setUserAuth(authCredential.user)
+        this.setUserAuth(authCredential.user.accessToken)
       } catch (error) {
         console.error(error.message);
       }
@@ -64,8 +69,29 @@ export default {
     },
     toggleSignInToSignUp(){
       this.userSignUp = !this.userSignUp
+    },
+    async loginGoogle(){
+      const googleProvider = new GoogleAuthProvider()
+      const auth = getAuth()
+      signInWithPopup(auth, googleProvider)
+        .then((result) => {
+          const credential = GoogleAuthProvider.credentialFromResult(result)
+          this.setUserAuth(credential?.accessToken)
+        })
+        .catch(() => alert('google login failed'))
+    },
+    async loginGithub(){
+      const githubProvider = new GithubAuthProvider()
+      const auth = getAuth()
+      signInWithPopup(auth, githubProvider)
+        .then((result) => {
+          const credential = GithubAuthProvider.credentialFromResult(result)
+          const token = credential?.accessToken
+          this.setUserAuth(token)
+        })
+        .catch(() => alert('github failed'))
     }
-  },
+  }
 
 }
 
@@ -98,6 +124,19 @@ export default {
 }
 
 .image-container img {
+  max-width: 100%;
+}
+
+[auth] {
+  width: 50px;
+  background-color: initial;
+  border: initial;
+  color: initial;
+  box-shadow: initial;
+  cursor: pointer;
+}
+
+[auth] img {
   max-width: 100%;
 }
 </style>
