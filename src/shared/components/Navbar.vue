@@ -20,12 +20,10 @@
           </RouterLink>
         </li>
         <li>
-
           <RouterLink v-if="getUserAuth === ''" class="navbar-links" :to="{name: 'login'}">
             {{ 'Sign in' }}
           </RouterLink>
-          
-          <button v-else class="navbar-links">Sing out</button>
+            <button class="nav-button navbar-links" v-else @click="logout">Sign out</button>
         </li>
       </ul>
     </nav>
@@ -34,7 +32,7 @@
 
 <script>
 import { RouterLink } from "vue-router";
-import { mapStores, mapState } from "pinia";
+import { mapState, mapActions } from "pinia";
 import Logo from "@/assets/images/logo-app.webp";
 import { useAuthStore } from "../../auth/stores/authStore";
 
@@ -58,7 +56,11 @@ export default {
     ...mapState(useAuthStore, ['getUserAuth'])
   },
   methods: {
-    ...mapStores(useAuthStore)
+    ...mapActions(useAuthStore, ['setUserAuth']),
+    logout(){
+      this.setUserAuth('')
+      this.$router.push('/')
+    }
   }
 };
 </script>
@@ -236,6 +238,15 @@ export default {
       max-height: 100%;
       font-size: var(--font-size-sm);
     }
+  }
+  .nav-button{
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  cursor: pointer;
   }
 }
 
