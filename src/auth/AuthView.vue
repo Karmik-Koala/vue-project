@@ -1,17 +1,8 @@
 <template>
   <div class="login-container">
     <div class="form-container">
-      <form v-if="!userSignUp" @submit.prevent="onSubmit" class="form">
-        <h1>WELLCOME</h1>
-        <h2>we are glad to see you back with us</h2>
-        <div class="form-group"><label for="email">Email</label><input id="email" v-model="email" type="text"></div>
-        <div class="form-group"><label for="password">Password</label><input id="password" v-model="password"
-            type="password"></div>
-        <button type="submit" :disabled="!formIsValid" >LOGIN</button>
-        <p>Don't have an account <span @click="toggleSignInToSignUp()">SIGN UP</span></p>
-        <button auth="google" @click="loginGoogle" ><img src="google-icon.png" alt=""></button>
-        <button auth="github" @click="loginGithub" ><img src="github-icon.png" alt=""></button>
-      </form>
+      <SignInForm v-if="userAlreadyExist"/>
+      <SignUpForm v-else/>
     </div>
     <div class="image-container">
       <img src="/logo-app.webp" alt="">
@@ -20,35 +11,23 @@
 </template>
 
 <script>
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, GithubAuthProvider } from 'firebase/auth'
+import SignInForm from './SignInForm.vue'
+import SignUpForm from './SignUpForm.vue'
+import { getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 import {useAuthStore} from './stores/authStore'
-import { mapState, mapActions } from 'pinia'
-import {EMAIL_PATTERN, PASSWORD_MIN_LENGTH} from './constants/loginRestrictions'
+import { mapActions } from 'pinia'
 
 
 
 export default {
   name: 'AuthView',
+  components: {
+    SignInForm,
+    SignUpForm
+  },
   data() {
     return {
-      email: '',
-      password: '',
-      userSignUp: false
-    }
-  },
-  computed: {
-    ...mapState(useAuthStore, ['getUserAuth']),
-    formIsValid() {
-      return (
-        this.mailIsValid &&
-        this.passwordIsValid
-      );
-    },
-    mailIsValid(){ 
-      return EMAIL_PATTERN.test(this.email) && this.email.length > 0;
-    },
-    passwordIsValid(){
-      return this.password.length > PASSWORD_MIN_LENGTH
+      userAlreadyExist: true
     }
   },
   methods: {
@@ -61,38 +40,8 @@ export default {
       } catch (error) {
         console.error(error.message);
       }
-    },
-    async onSubmit() {
-      if (!this.formIsValid) return;
-      console.log('Send my form!');
-      await this.authUser()
-    },
-    toggleSignInToSignUp(){
-      this.userSignUp = !this.userSignUp
-    },
-    async loginGoogle(){
-      const googleProvider = new GoogleAuthProvider()
-      const auth = getAuth()
-      signInWithPopup(auth, googleProvider)
-        .then((result) => {
-          const credential = GoogleAuthProvider.credentialFromResult(result)
-          this.setUserAuth(credential?.accessToken)
-        })
-        .catch(() => alert('google login failed'))
-    },
-    async loginGithub(){
-      const githubProvider = new GithubAuthProvider()
-      const auth = getAuth()
-      signInWithPopup(auth, githubProvider)
-        .then((result) => {
-          const credential = GithubAuthProvider.credentialFromResult(result)
-          const token = credential?.accessToken
-          this.setUserAuth(token)
-        })
-        .catch(() => alert('github failed'))
     }
   }
-
 }
 
 </script>
@@ -127,16 +76,5 @@ export default {
   max-width: 100%;
 }
 
-[auth] {
-  width: 50px;
-  background-color: initial;
-  border: initial;
-  color: initial;
-  box-shadow: initial;
-  cursor: pointer;
-}
 
-[auth] img {
-  max-width: 100%;
-}
 </style>
