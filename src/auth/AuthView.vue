@@ -13,11 +13,6 @@
 <script>
 import SignInForm from './SignInForm.vue'
 import SignUpForm from './SignUpForm.vue'
-import { getAuth, signInWithEmailAndPassword} from 'firebase/auth'
-import {useAuthStore} from './stores/authStore'
-import { mapActions } from 'pinia'
-
-
 
 export default {
   name: 'AuthView',
@@ -31,16 +26,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions(useAuthStore, ['setUserAuth']),
-    async authUser() {
-      try {
-        const auth = getAuth()
-        const authCredential = await signInWithEmailAndPassword(auth, this.email, this.password)
-        this.setUserAuth(authCredential.user.accessToken)
-      } catch (error) {
-        console.error(error.message);
-      }
-    }
   }
 }
 
