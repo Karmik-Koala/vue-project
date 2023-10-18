@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
-    <div class="form-container">
-      <SignInForm v-if="userAlreadyExist"/>
+    <div class="form-container"  >
+      <SignInForm v-if="userAlreadyExist" @sign-up="handleSignUp"/>
       <SignUpForm v-else/>
     </div>
     <div class="image-container">
@@ -26,7 +26,10 @@ export default {
     }
   },
   methods: {
-  }
+    handleSignUp(){
+      this.userAlreadyExist = false
+    }
+  },
 }
 
 </script>

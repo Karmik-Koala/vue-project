@@ -6,7 +6,7 @@
     <div class="form-group"><label for="password">Password</label><input id="password" v-model="password" type="password">
     </div>
     <button type="submit" :disabled="!formIsValid">LOGIN</button>
-    <p>Don't have an account <span @click="toggleSignInToSignUp()">SIGN UP</span></p>
+    <p>Don't have an account <span @click="signUpEmmit">SIGN UP</span></p>
     <button auth="google" @click="loginGoogle"><img src="google-icon.png" alt=""></button>
     <button auth="github" @click="loginGithub"><img src="github-icon.png" alt=""></button>
   </form>
@@ -20,6 +20,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, GithubAuthProvider, signI
 
 export default {
   name: 'SignInForm',
+  emits: ['signUp'],
   data() {
     return {
       email: '',
@@ -57,9 +58,6 @@ export default {
         console.error(error.message);
       }
     },
-    toggleSignInToSignUp() {
-      this.userSignUp = !this.userSignUp
-    },
     async loginGoogle() {
       const googleProvider = new GoogleAuthProvider()
       const auth = getAuth()
@@ -80,6 +78,9 @@ export default {
           this.setUserAuth(token)
         })
         .catch(() => alert('github failed'))
+    },
+    signUpEmmit(){
+      this.$emit('signUp')
     }
   },
 
