@@ -28,3 +28,14 @@ export const getListFavoriteMeals = async () => {
 
   return snapshot;
 };
+
+export const getRecipeeInfo = async (id) => {
+  try {
+    let url = `${API.BASE_URL}/${id}?app_id=${API.APP_ID}&app_key=${API.APP_KEY}&type=public`;
+  
+    const info = await fetch(url).then(res => res.json());
+    return info;
+  } catch (error) {
+    console.log(error)
+  }
+}
