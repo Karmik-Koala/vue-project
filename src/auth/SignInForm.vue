@@ -14,9 +14,9 @@
 
 <script>
 import { useAuthStore } from './stores/authStore'
-import { mapState } from 'pinia'
+import { mapState, mapActions } from 'pinia';
 import { EMAIL_PATTERN, PASSWORD_MIN_LENGTH } from './constants/loginRestrictions'
-import { getAuth, GoogleAuthProvider, signInWithPopup, GithubAuthProvider } from 'firebase/auth'
+import { getAuth, GoogleAuthProvider, signInWithPopup, GithubAuthProvider, signInWithEmailAndPassword } from 'firebase/auth'
 
 export default {
   name: 'SignInForm',
@@ -26,7 +26,7 @@ export default {
       password: ''
     }
   },
-    computed: {
+  computed: {
     ...mapState(useAuthStore, ['getUserAuth']),
     formIsValid() {
       return (
@@ -42,10 +42,20 @@ export default {
     }
   },
   methods: {
-        async onSubmit() {
+        ...mapActions(useAuthStore, ['setUserAuth']),
+    async onSubmit() {
       if (!this.formIsValid) return;
       console.log('Send my form!');
       await this.authUser()
+    },
+    async authUser() {
+      try {
+        const auth = getAuth()
+        const authCredential = await signInWithEmailAndPassword(auth, this.email, this.password)
+        this.setUserAuth(authCredential.user.accessToken)
+      } catch (error) {
+        console.error(error.message);
+      }
     },
     toggleSignInToSignUp() {
       this.userSignUp = !this.userSignUp
