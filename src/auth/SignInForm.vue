@@ -1,6 +1,6 @@
 <template>
   <form v-if="!userSignUp" class="form" @submit.prevent="onSubmit">
-    <FormHeader title="WELLCOME" subtitle="we are glad to see you back with us" />
+    <FormHeader title="WELCOME" subtitle="we are glad to see you back with us" />
 <div class="input-section">
 
   <BaseInput v-model="email" label="Email" />
