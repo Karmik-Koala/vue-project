@@ -1,14 +1,21 @@
 <template>
-  <form v-if="!userSignUp" @submit.prevent="onSubmit" class="form">
-    <h1>WELLCOME</h1>
-    <h2>we are glad to see you back with us</h2>
-    <div class="form-group"><label for="email">Email</label><input id="email" v-model="email" type="text"></div>
-    <div class="form-group"><label for="password">Password</label><input id="password" v-model="password" type="password">
-    </div>
-    <button type="submit" :disabled="!formIsValid">LOGIN</button>
-    <p>Don't have an account <span @click="signUpEmmit">SIGN UP</span></p>
-    <button auth="google" @click="loginGoogle"><img src="google-icon.png" alt=""></button>
-    <button auth="github" @click="loginGithub"><img src="github-icon.png" alt=""></button>
+  <form v-if="!userSignUp" class="form" @submit.prevent="onSubmit">
+    <FormHeader title="WELLCOME" subtitle="we are glad to see you back with us" />
+<div class="input-section">
+
+  <BaseInput v-model="email" label="Email" />
+  <BaseInput v-model="password" label="Password" type="password" />
+</div>
+
+
+  <BaseButton class="login-button">LOGIN</BaseButton>
+
+      
+      <div class="auth-icons-container">
+        <button auth="google" @click="loginGoogle"><img src="google-icon.png" alt=""></button>
+        <button auth="github" @click="loginGithub"><img src="github-icon.png" alt=""></button>
+      </div>
+      <p>Don't have an account <BaseButton @click="signUpEmmit">SIGN UP</BaseButton></p>
   </form>
 </template>
 
@@ -17,9 +24,12 @@ import { useAuthStore } from './stores/authStore'
 import { mapState, mapActions } from 'pinia';
 import { EMAIL_PATTERN, PASSWORD_MIN_LENGTH } from './constants/loginRestrictions'
 import { getAuth, GoogleAuthProvider, signInWithPopup, GithubAuthProvider, signInWithEmailAndPassword } from 'firebase/auth'
-
+import BaseButton from '../shared/components/BaseButton.vue'
+import BaseInput from './BaseInput.vue';
+import FormHeader from './FormHeader.vue';
 export default {
   name: 'SignInForm',
+  components: { BaseButton, BaseInput, FormHeader },
   emits: ['signUp'],
   data() {
     return {
@@ -43,7 +53,7 @@ export default {
     }
   },
   methods: {
-        ...mapActions(useAuthStore, ['setUserAuth']),
+    ...mapActions(useAuthStore, ['setUserAuth']),
     async onSubmit() {
       if (!this.formIsValid) return;
       console.log('Send my form!');
@@ -79,8 +89,11 @@ export default {
         })
         .catch(() => alert('github failed'))
     },
-    signUpEmmit(){
+    signUpEmmit() {
       this.$emit('signUp')
+    },
+    onInput() {
+
     }
   },
 
@@ -88,6 +101,12 @@ export default {
 </script>
 
 <style scoped>
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 [auth] {
   width: 50px;
   background-color: initial;
@@ -99,5 +118,26 @@ export default {
 
 [auth] img {
   max-width: 100%;
+}
+
+.input-section {
+  margin-bottom: 20px;
+}
+
+.auth-icons-container {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+
+  & button{
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
+
+.login-button {
+  padding: 10px;
+  width: 10rem;
 }
 </style>

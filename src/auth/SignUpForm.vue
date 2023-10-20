@@ -1,13 +1,14 @@
 <template>
   <form v-if="!userSignUp" @submit.prevent="onSubmit" class="form">
-    <h1>WELLCOME</h1>
-    <h2>we are glad to create your account with us</h2>
-    <div class="form-group"><label for="email">Email</label><input id="email" v-model="email" type="text"></div>
-    <div class="form-group"><label for="password">Password</label><input id="password" v-model="password1" type="password">
-    </div>
-        <div class="form-group"><label for="password">Password</label><input id="password" v-model="password2" type="password">
-      </div>
-    <button type="submit" :disabled="!formIsValid">LOGIN</button>
+    <FormHeader title="CREATE NEW ACCOUNT" subtitle="we are glad to create your account with us"/>
+    <div class="input-section">
+
+      <BaseInput v-model="email" label="Email" />
+      <BaseInput v-model="password1" label="Password" type="password"/>
+      <BaseInput v-model="password2" label="Repeat Password" type="password"/>
+      <BaseButton class="create-account-button">CREATE ACCOUNT</BaseButton>
+    </div>  
+    <p>Have an account? <BaseButton @click="signInEmmit">SIGN IN</BaseButton></p>
   </form>
 </template>
 
@@ -16,10 +17,18 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { mapActions, mapState } from 'pinia';
 import { useAuthStore } from "./stores/authStore";
 import { EMAIL_PATTERN, PASSWORD_MIN_LENGTH } from "./constants/loginRestrictions";
-
+import BaseInput from './BaseInput.vue'
+import BaseButton from "../shared/components/BaseButton.vue";
+import FormHeader from "./FormHeader.vue";
 
 export default {
   name: 'SignOnForm',
+  components: {
+    BaseInput,
+    BaseButton,
+    FormHeader
+  },
+  emits: ['sign-in'],
     data() {
     return {
       email: '',
@@ -65,9 +74,34 @@ export default {
       console.log('Send my form!');
       await this.authUser()
     },
+    signInEmmit(){
+      this.$emit('signIn')
+    }
   },
   
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.create-account-button {
+  width: 15em;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.input-section {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+</style>

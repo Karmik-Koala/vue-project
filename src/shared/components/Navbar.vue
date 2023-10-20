@@ -41,6 +41,9 @@ export default {
   components: {
     RouterLink,
   },
+  mounted(){
+    
+  },
   data() {
     return {
       logoPath: Logo,

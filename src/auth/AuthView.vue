@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="form-container"  >
       <SignInForm v-if="userAlreadyExist" @sign-up="handleSignUp"/>
-      <SignUpForm v-else/>
+      <SignUpForm v-else @sign-in="handleSignIn"/>
     </div>
     <div class="image-container">
       <img src="/logo-app.webp" alt="">
@@ -28,6 +28,9 @@ export default {
   methods: {
     handleSignUp(){
       this.userAlreadyExist = false
+    },
+        handleSignIn() {
+      this.userAlreadyExist = true
     }
   },
 }
@@ -37,27 +40,25 @@ export default {
 <style scoped>
 .login-container {
   width: clamp(700px, 50vw, 1200px);
+  padding: 1rem;
   display: flex;
   background-color: white;
-  border-radius: 7px;
+  border-radius: 20px;
   margin-right: auto;
   margin-left: auto;
-
+  
 }
 
 .form-container {
   display: flex;
+  flex-basis: 50%;
   flex-direction: column;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
+
 
 .image-container {
-  flex: 1;
+  flex-basis: 50%;
 }
 
 .image-container img {
