@@ -1,8 +1,8 @@
 <template>
   <div class="login-container">
-    <div class="form-container"  >
-      <SignInForm v-if="userAlreadyExist" @sign-up="handleSignUp"/>
-      <SignUpForm v-else @sign-in="handleSignIn"/>
+    <div class="form-container">
+      <SignInForm v-if="userAlreadyExist" @sign-up="handleSignUp" />
+      <SignUpForm v-else @sign-in="handleSignIn" />
     </div>
     <div class="image-container">
       <img src="/logo-app.webp" alt="">
@@ -26,10 +26,10 @@ export default {
     }
   },
   methods: {
-    handleSignUp(){
+    handleSignUp() {
       this.userAlreadyExist = false
     },
-        handleSignIn() {
+    handleSignIn() {
       this.userAlreadyExist = true
     }
   },
@@ -38,32 +38,48 @@ export default {
 </script>
 
 <style scoped>
-.login-container {
-  width: clamp(700px, 50vw, 1200px);
-  padding: 1rem;
-  display: flex;
-  background-color: white;
-  border-radius: 20px;
-  margin-right: auto;
-  margin-left: auto;
-  
-}
-
-.form-container {
-  display: flex;
-  flex-basis: 50%;
-  flex-direction: column;
-}
-
-
-
 .image-container {
-  flex-basis: 50%;
+  position: fixed;
+  top: 20vh;
+  z-index: -1;
+  opacity: 40%;
 }
 
 .image-container img {
   max-width: 100%;
 }
 
+@media screen and (width >=768px) {
+  .login-container {
+    width: clamp(700px, 50vw, 1200px);
+    padding: 1rem;
+    display: flex;
+    background-color: white;
+    border-radius: 20px;
+    margin-right: auto;
+    margin-left: auto;
 
+  }
+
+  .form-container {
+    display: flex;
+    flex-basis: 50%;
+    flex-direction: column;
+  }
+
+
+
+  .image-container {
+    position: static;
+    z-index: inherit;
+    opacity: 100%;
+    flex-basis: 50%;
+  }
+}
+
+@media screen and (width >=1024px) {}
+
+@media screen and (width >=1200px) {}
+
+@media screen and (width >=2560px) {}
 </style>

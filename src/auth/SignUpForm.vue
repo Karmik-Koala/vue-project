@@ -2,7 +2,6 @@
   <form v-if="!userSignUp" @submit.prevent="onSubmit" class="form">
     <FormHeader title="CREATE NEW ACCOUNT" subtitle="we are glad to create your account with us"/>
     <div class="input-section">
-
       <BaseInput v-model="email" label="Email" />
       <BaseInput v-model="password1" label="Password" type="password"/>
       <BaseInput v-model="password2" label="Repeat Password" type="password"/>
