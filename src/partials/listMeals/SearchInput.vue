@@ -24,6 +24,12 @@ export default {
     SearchIcon,
     XIcon,
   },
+  props: {
+    onClearSearch: {
+      type: Function,
+      default: () => {},
+    },
+  },
   emits: {
     search: null,
     handleDataMeals: null,
@@ -35,13 +41,19 @@ export default {
   },
   methods: {
     sendSearch(e) {
-      this.$emit("search", FILTERS.SEARCH, e.target.value);
+      const search = (e.target.value || "").trim();
+      if (!search || !search.length) return;
+
+      this.$emit("search", FILTERS.SEARCH, search);
     },
     clearSerch() {
       this.search = "";
       this.$emit("search", FILTERS.SEARCH, "");
+      this.onClearSearch(FILTERS.SEARCH);
     },
     handleListMeals() {
+      const search = (this.search || "").trim();
+      if (!search || !search.length) return;
       this.$emit("handleDataMeals");
     },
   },

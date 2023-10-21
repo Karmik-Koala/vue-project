@@ -16,6 +16,7 @@ export const getListMeals = async (filters) => {
 
     const res = await fetch(url);
     const data = await res.json();
+
     return data;
   } catch (error) {
     console.log(error);
@@ -32,10 +33,10 @@ export const getListFavoriteMeals = async () => {
 export const getRecipeeInfo = async (id) => {
   try {
     let url = `${API.BASE_URL}/${id}?app_id=${API.APP_ID}&app_key=${API.APP_KEY}&type=public`;
-  
-    const info = await fetch(url).then(res => res.json());
+
+    const info = await fetch(url).then((res) => res.json());
     return info;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};

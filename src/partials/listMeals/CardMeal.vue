@@ -17,6 +17,23 @@
     </RouterLink>
     <div class="card-info">
       <h3 class="card-title">{{ meal.label }}</h3>
+      <div>
+        <p class="nutrient-info">
+          <span class="green"></span><strong>PROTEINS:</strong>
+          {{ meal.totalNutrients.PROCNT.quantity.toFixed(2)
+          }}{{ meal.totalNutrients.PROCNT.unit }}
+        </p>
+        <p class="nutrient-info">
+          <span class="red"></span><strong>FAT:</strong>
+          {{ meal.totalNutrients.FAT.quantity.toFixed(2)
+          }}{{ meal.totalNutrients.FAT.unit }}
+        </p>
+        <p class="nutrient-info">
+          <span class="yellow"></span><strong>CARBS:</strong>
+          {{ meal.totalNutrients.CHOCDF.quantity.toFixed(2)
+          }}{{ meal.totalNutrients.CHOCDF.unit }}
+        </p>
+      </div>
     </div>
   </article>
 </template>
@@ -40,6 +57,8 @@ export default {
 
 <style scoped>
 .card {
+  display: flex;
+  flex-direction: column;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0, 1);
   background-color: #fff;
   width: 100%;
@@ -56,6 +75,7 @@ export default {
   & .card-info-hover {
     position: absolute;
     padding: 16px;
+    box-sizing: border-box;
     width: 100%;
     opacity: 0;
     top: 0;
@@ -75,7 +95,7 @@ export default {
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
-    height: 235px;
+    min-height: 235px;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
   }
@@ -99,7 +119,10 @@ export default {
   }
 
   & .card-info {
-    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
     background-color: #fff;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
@@ -111,11 +134,36 @@ export default {
       font-family: var(--font-family-roboto);
       font-weight: normal;
     }
+
+    & .nutrient-info {
+      font-family: var(--font-family-roboto);
+      font-size: var(--font-size-xs);
+
+      & span {
+        display: inline-block;
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        margin-right: 6px;
+      }
+    }
   }
 
   &:hover .card-info {
     background-color: transparent;
     position: relative;
   }
+}
+
+.red {
+  background-color: var(--color-thunderbird);
+}
+
+.green {
+  background-color: var(--color-green);
+}
+
+.yellow {
+  background-color: var(--color-yellow);
 }
 </style>

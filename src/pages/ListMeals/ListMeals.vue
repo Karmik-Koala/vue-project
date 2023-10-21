@@ -2,15 +2,21 @@
   <div>
     <div class="container-title">
       <h2 class="title">Customized Cooking</h2>
-      <p class="subtitle">Find Recipes to Inspire You</p>
+      <p class="subtitle">Discover recipes and see their nutritional data.</p>
     </div>
     <div>
       <!-- <FiltersBox @change-category="setFilter"/> -->
       <div class="container-search">
-        <SearchInput @search="setFilter" @handle-data-meals="listMeals" />
+        <SearchInput
+          :on-clear-search="clearSearch"
+          @search="setFilter"
+          @handle-data-meals="listMeals"
+        />
       </div>
       <section>
-        <ListRender :items="meals" />
+        <SkeletonListRender v-if="loading" />
+        <ListRender v-else :items="meals" />
+        <NotDataFound v-if="showNotData" />
       </section>
     </div>
   </div>
@@ -21,6 +27,8 @@ import { CONSTANTS } from "@/constants";
 import { getListMeals } from "../../services/meals.js";
 import SearchInput from "../../partials/listMeals/SearchInput.vue";
 import ListRender from "../../partials/listMeals/ListRender.vue";
+import SkeletonListRender from "../../partials/listMeals/SkeletonListRender.vue";
+import NotDataFound from "../../partials/listMeals/NotDataFound.vue";
 
 const { API } = CONSTANTS;
 
@@ -29,10 +37,14 @@ export default {
   components: {
     SearchInput,
     ListRender,
+    SkeletonListRender,
+    NotDataFound,
   },
   data() {
     return {
+      loading: false,
       meals: [],
+      showNotData: false,
       filters: {},
     };
   },
@@ -44,7 +56,17 @@ export default {
       };
     },
     async listMeals() {
+      this.showNotData = false;
+      this.loading = true;
+
       const data = await getListMeals(this.filters);
+
+      if (!data.hits.length) {
+        this.showNotData = true;
+        this.loading = false;
+        return;
+      }
+
       this.meals = data.hits.map((item) => ({
         label: item.recipe.label,
         image: item.recipe.image,
@@ -54,6 +76,17 @@ export default {
           item._links.self.href.indexOf("?type")
         ),
       }));
+
+      this.loading = false;
+    },
+    clearSearch(filter) {
+      this.showNotData = false;
+      this.loading = false;
+      this.meals = [];
+      this.filters = {
+        ...this.filters,
+        [filter]: null,
+      };
     },
   },
 };

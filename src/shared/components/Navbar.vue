@@ -1,11 +1,9 @@
 <template>
   <header class="header-container">
-    <div class="container-logo">
-                <RouterLink class="navbar-links" :to="'/'">
-              <img class="logo" :src="logoPath" alt="logo..." />
-            </RouterLink>
+    <RouterLink class="container-logo" to="/">
+      <img class="logo" :src="logoPath" alt="logo..." />
       <h1 class="company-name">MealMate</h1>
-    </div>
+    </RouterLink>
     <nav class="navbar-container">
       <input id="menu-input" class="hidden" type="checkbox" />
       <label class="icon-bars" for="menu-input">
@@ -20,10 +18,16 @@
           </RouterLink>
         </li>
         <li>
-          <RouterLink v-if="getUserAuth === ''" class="navbar-links" :to="{name: 'login'}">
-            {{ 'Sign in' }}
+          <RouterLink
+            v-if="getUserAuth === ''"
+            class="navbar-links"
+            :to="{ name: 'login' }"
+          >
+            {{ "Sign in" }}
           </RouterLink>
-            <button class="nav-button navbar-links" v-else @click="logout">Sign out</button>
+          <button v-else class="nav-button navbar-links" @click="logout">
+            Sign out
+          </button>
         </li>
       </ul>
     </nav>
@@ -41,9 +45,6 @@ export default {
   components: {
     RouterLink,
   },
-  mounted(){
-    
-  },
   data() {
     return {
       logoPath: Logo,
@@ -56,15 +57,15 @@ export default {
     };
   },
   computed: {
-    ...mapState(useAuthStore, ['getUserAuth'])
+    ...mapState(useAuthStore, ["getUserAuth"]),
   },
   methods: {
-    ...mapActions(useAuthStore, ['setUserAuth']),
-    logout(){
-      this.setUserAuth('')
-      this.$router.push('/')
-    }
-  }
+    ...mapActions(useAuthStore, ["setUserAuth"]),
+    logout() {
+      this.setUserAuth("");
+      this.$router.push("/");
+    },
+  },
 };
 </script>
 
@@ -242,15 +243,14 @@ export default {
       font-size: var(--font-size-sm);
     }
   }
-  .nav-button{
-  display: inline-block;
-  padding: 0;
-  margin: 0;
-  border: none;
-  background: none;
-  color: inherit;
-  cursor: pointer;
+  .nav-button {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    color: inherit;
+    cursor: pointer;
   }
 }
-
 </style>

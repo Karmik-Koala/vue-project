@@ -1,6 +1,6 @@
 <template>
   <div class="body">
-      <Navbar />
+    <Navbar />
     <!-- Content of the page -->
     <main class="main">
       <RouterView />
@@ -23,10 +23,13 @@ export default {
 </script>
 
 <style scoped>
-.body{
+.body {
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
+}
 
+.main {
+  padding: 5%;
 }
 </style>
