@@ -1,24 +1,24 @@
 <template>
-      <div class="form-header">
-        <h1 class="title">{{ title }}</h1>
-        <h2 class="subtitle">{{ subtitle }}</h2>
-      </div>
+  <div class="form-header">
+    <h1 class="title">{{ title }}</h1>
+    <h2 class="subtitle">{{ subtitle }}</h2>
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'FormHeader',
-    props: {
-      title: {
-        type: String,
-        default: ''
-      },
-      subtitle: {
-        type: String,
-        default: ''
-      }
-    }
-  }
+export default {
+  name: "FormHeader",
+  props: {
+    title: {
+      type: String,
+      default: "",
+    },
+    subtitle: {
+      type: String,
+      default: "",
+    },
+  },
+};
 </script>
 
 <style scoped>

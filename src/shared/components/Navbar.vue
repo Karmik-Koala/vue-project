@@ -19,7 +19,7 @@
         </li>
         <li>
           <RouterLink
-            v-if="getUserAuth === ''"
+            v-if="getAccessToken === ''"
             class="navbar-links"
             :to="{ name: 'login' }"
           >
@@ -57,12 +57,12 @@ export default {
     };
   },
   computed: {
-    ...mapState(useAuthStore, ["getUserAuth"]),
+    ...mapState(useAuthStore, ["getAccessToken"]),
   },
   methods: {
-    ...mapActions(useAuthStore, ["setUserAuth"]),
+    ...mapActions(useAuthStore, ["setAccessToken"]),
     logout() {
-      this.setUserAuth("");
+      this.setAccessToken("");
       this.$router.push("/");
     },
   },
