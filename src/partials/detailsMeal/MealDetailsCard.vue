@@ -47,10 +47,9 @@ p {
 
 .meal-card {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   background: rgb(255, 255, 255);
   border-radius: 10px;
-  width: 25%;
 
   & .meal-card-image {
     padding: 20px;
@@ -116,6 +115,51 @@ p {
         }
       }
     }
+  }
+}
+
+@media screen and (width >=768px) {
+  .meal-card {
+    flex-direction: row;
+    width: 100%;
+
+    & .meal-card-container {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+@media screen and (width >=1024px) {
+  .meal-card {
+    flex-direction: row;
+  }
+}
+
+@media screen and (width >=1200px) {
+  .meal-card {
+    flex-direction: column;
+    /* width: 100%; */
+  }
+}
+
+@media screen and (width >=1400px) {
+  .meal-card {
+    flex-direction: column;
+    width: 50%;
+  }
+}
+
+@media screen and (width >=1600px) {
+  .meal-card {
+    flex-direction: column;
+    width: 30%;
+  }
+}
+
+@media screen and (width >=2300px) {
+  .meal-card {
+    width: 25%;
   }
 }
 </style>

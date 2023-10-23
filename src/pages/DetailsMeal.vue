@@ -1,6 +1,13 @@
 <template>
   <SkeletonLoader v-if="loading" />
   <div v-else>
+    <!-- <RouterLink to="/">
+      <div class="go-back">
+        <div class="button-back">
+          <img width="40" height="40" src="https://img.icons8.com/ios-filled/50/back.png" alt="back" />
+        </div>
+      </div>
+    </RouterLink> -->
     <section class="meal-section ">
       <MealDetailsCard :info="info"></MealDetailsCard>
       <MealDetailsInfo :info="info"></MealDetailsInfo>
@@ -9,7 +16,7 @@
     <section class="related">
       <h1> You might also like </h1>
       <div class="cards-container">
-        <ListRender :items="[info.recipe, info.recipe, info.recipe, info.recipe]" class="list-render" />
+        <ListRender :items="[info.recipe, info.recipe, info.recipe, info.recipe, info.recipe]" class="list-render" />
       </div>
     </section>
   </div>
@@ -58,27 +65,65 @@ h1 {
   -webkit-text-fill-color: transparent;
 }
 
+.go-back {
+  display: flex;
+  margin-bottom: 1rem;
+
+  & .button-back {
+    display: flex;
+    align-items: center;
+    gap: 1%;
+    padding: 5px;
+    border: 2px solid var(--color-ferra);
+    border-radius: 7px;
+
+    & img {
+      filter: invert(20%) saturate(50%) sepia(100%);
+    }
+  }
+}
+
 .meal-section {
   display: flex;
-  flex-direction: row;
-  gap: 10%;
+  flex-direction: column;
+  gap: 5%;
   color: var(--color-ferra);
   font-family: var(--font-family-roboto);
 }
 
 .related h1 {
-  margin: 70px 0px;
+  margin: 50px 0px;
 }
 
-
 .cards-container {
-  /* padding: 40px; */
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 20px;
 
   & .list-render {
     padding: 0;
+  }
+}
+
+@media screen and (width >=768px) {
+  .meal-section {
+    flex-direction: column;
+  }
+
+  .related h1 {
+    font-size: var(--font-size-lg)
+  }
+}
+
+@media screen and (width >=1024px) {
+  .meal-section {
+    flex-direction: column;
+  }
+}
+
+@media screen and (width >=1200px) {
+  .meal-section {
+    flex-direction: row;
   }
 }
 </style>

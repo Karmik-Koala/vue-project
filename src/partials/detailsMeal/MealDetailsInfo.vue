@@ -68,4 +68,34 @@ p {
 .meal-info .process {
   padding: 30px 0px;
 }
+
+@media screen and (width >=768px) {
+  h1 {
+    margin-top: 30px;
+    font-size: var(--font-size-lg);
+  }
+
+  h2 {
+    font-size: var(--font-size-nl);
+  }
+
+  p {
+    font-size: var(--font-size-ns)
+  }
+}
+
+@media screen and (width >=1400px) {
+  h1 {
+    margin-top: 30px;
+    font-size: var(--font-size-xl);
+  }
+
+  h2 {
+    font-size: var(--font-size-lg);
+  }
+
+  p {
+    font-size: var(--font-size-normal)
+  }
+}
 </style>
