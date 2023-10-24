@@ -1,89 +1,14 @@
 <template>
-  <form class="form" @submit.prevent="onSubmit">
-    <FormHeader
-      title="CREATE NEW ACCOUNT"
-      subtitle="we are glad to create your account with us"
-    />
-    <div class="input-section">
-      <BaseInput v-model="email" label="Email" />
-      <BaseInput v-model="password1" label="Password" type="password" />
-      <BaseInput v-model="password2" label="Repeat Password" type="password" />
-      <BaseButton class="create-account-button">CREATE ACCOUNT</BaseButton>
-    </div>
-    <p>
-      Have an account? <BaseButton @click="signInEmmit">SIGN IN</BaseButton>
-    </p>
-  </form>
+  <FormHeader
+    title="CREATE NEW ACCOUNT"
+    subtitle="we are glad to create your account with us"
+  />
+
+
 </template>
 
-<script>
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { mapActions, mapState } from "pinia";
-import { useAuthStore } from "./stores/authStore";
-import {
-  EMAIL_PATTERN,
-  PASSWORD_MIN_LENGTH,
-} from "./constants/loginRestrictions";
-import BaseInput from "./BaseInput.vue";
-import BaseButton from "../shared/components/BaseButton.vue";
-import FormHeader from "./FormHeader.vue";
-
-export default {
-  name: "SignOnForm",
-  components: {
-    BaseInput,
-    BaseButton,
-    FormHeader,
-  },
-  emits: ["sign-in"],
-  data() {
-    return {
-      email: "",
-      password1: "",
-      password2: "",
-    };
-  },
-  computed: {
-    ...mapState(useAuthStore, ["getAccessToken"]),
-    formIsValid() {
-      return this.mailIsValid && this.passwordIsValid && this.passwordsAreEqual;
-    },
-    mailIsValid() {
-      return EMAIL_PATTERN.test(this.email) && this.email.length > 0;
-    },
-    passwordIsValid() {
-      return (
-        this.password1.length > PASSWORD_MIN_LENGTH &&
-        this.password2.length > PASSWORD_MIN_LENGTH
-      );
-    },
-    passwordsAreEqual() {
-      return this.password1 === this.password2;
-    },
-  },
-  methods: {
-    ...mapActions(useAuthStore, ["setAccessToken"]),
-    signUpNewUser() {
-      const auth = getAuth();
-      createUserWithEmailAndPassword(auth, this.email, this.password1)
-        .then((userCredential) => {
-          this.setAccessToken(userCredential.user.accessToken);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.error(errorCode, errorMessage);
-        });
-    },
-    async onSubmit() {
-      if (!this.formIsValid) return;
-      await this.authUser();
-    },
-    signInEmmit() {
-      this.$emit("signIn");
-    },
-  },
-};
+<script setup>
+import FormHeader from './FormHeader.vue';
 </script>
 
 <style scoped>

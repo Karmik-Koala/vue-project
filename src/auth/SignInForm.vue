@@ -1,153 +1,29 @@
 <template>
-  <form class="form" @submit.prevent="onSubmit">
-    <FormHeader
-      title="WELCOME"
-      subtitle="we are glad to see you back with us"
-    />
-    <div class="input-section">
-      <BaseInput v-model.lazy="email" label="Email" />
-      <BaseInput v-model.lazy="password" label="Password" type="password" />
-    </div>
-
-    <BaseButton class="login-button">LOGIN</BaseButton>
-
-    <div class="auth-icons-container">
-      <button auth="google" @click="loginGoogle">
-        <img src="google-icon.png" alt="" />
-      </button>
-      <button auth="github" @click="loginGithub">
-        <img src="github-icon.png" alt="" />
-      </button>
-    </div>
-    <p>
-      Don't have an account
-      <BaseButton @click="signUpEmmit">SIGN UP</BaseButton>
-    </p>
-  </form>
+  <FormHeader title="CREATE NEW ACCOUNT" subtitle="we are glad to create your account with us" />
+  <CustomInput v-bind="email"/>
+  <CustomInput :type="'password'" v-bind="password"/>
+  <pre>
+    values: {{ values }}
+  </pre>
+  <pre>
+    errors: {{ errors }}
+  </pre>
 </template>
 
-<script>
-import { useAuthStore } from "./stores/authStore";
-import { mapState, mapActions } from "pinia";
-import {
-  EMAIL_PATTERN,
-  PASSWORD_MIN_LENGTH,
-} from "./constants/loginRestrictions";
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  GithubAuthProvider,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import BaseButton from "../shared/components/BaseButton.vue";
-import BaseInput from "./BaseInput.vue";
-import FormHeader from "./FormHeader.vue";
+<script setup>
+import FormHeader from './FormHeader.vue';
+import {signInValidationSchema} from './forms/schemas/signIn.schema'
+import CustomInput from './CustomInput.vue';
+import { useForm } from 'vee-validate';
 
-export default {
-  name: "SignInForm",
-  components: { BaseButton, BaseInput, FormHeader },
-  emits: ["signUp"],
-  data() {
-    return {
-      email: "",
-      password: "",
-      loading: false,
-    };
-  },
-  computed: {
-    ...mapState(useAuthStore, ["getAccessToken", "getUser"]),
-  },
-  methods: {
-    ...mapActions(useAuthStore, ["setAccessToken", "setUser"]),
-    formIsValid() {
-      return this.mailIsValid && this.passwordIsValid;
-    },
-    mailIsValid() {
-      return EMAIL_PATTERN.test(this.email) && this.email.length > 0;
-    },
-    passwordIsValid() {
-      return this.password.length > PASSWORD_MIN_LENGTH;
-    },
-    async onSubmit() {
-      if (!this.formIsValid || this.loading) return;
+const {values, errors, defineInputBinds} = useForm({
+  validationSchema: signInValidationSchema
+})
 
-      this.loading = true;
+const email = defineInputBinds('email');
+const password = defineInputBinds('password')
 
-      try {
-        const auth = getAuth();
-        const authCredential = await signInWithEmailAndPassword(
-          auth,
-          this.email,
-          this.password
-        );
 
-        const { email, uid, accessToken } = authCredential.user;
-
-        this.setUser({ email, uid });
-        this.setAccessToken(accessToken);
-
-        this.$router.push("/");
-      } catch (error) {
-        console.error(error.message);
-      }
-
-      this.loading = false;
-    },
-    async loginGoogle() {
-      if (this.loading) return;
-
-      this.loading = true;
-
-      const googleProvider = new GoogleAuthProvider();
-      const auth = getAuth();
-
-      const result = await signInWithPopup(auth, googleProvider);
-
-      try {
-        const {
-          user: { email, uid, idToken },
-        } = result;
-        GoogleAuthProvider.credentialFromResult(result);
-        this.setAccessToken(idToken);
-        this.setUser({ email, uid });
-        this.$router.push("/");
-      } catch (error) {
-        alert("google login failed");
-      }
-
-      this.loading = false;
-    },
-    async loginGithub() {
-      if (this.loading) return;
-
-      this.loading = true;
-
-      const githubProvider = new GithubAuthProvider();
-      const auth = getAuth();
-
-      const result = await signInWithPopup(auth, githubProvider);
-
-      try {
-        const {
-          user: { email, uid, idToken },
-        } = result;
-        GithubAuthProvider.credentialFromResult(result);
-        this.setAccessToken(idToken);
-        this.setUser({ email, uid });
-        this.$router.push("/");
-      } catch (error) {
-        console.log(error);
-        alert("github failed");
-      }
-
-      this.loading = false;
-    },
-    signUpEmmit() {
-      this.$emit("signUp");
-    },
-  },
-};
 </script>
 
 <style scoped>
