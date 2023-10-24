@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import SignInForm from './SignInForm.vue'
-import SignUpForm from './SignUpForm.vue'
+import SignInForm from '../forms/partials/SignInForm.vue'
+import SignUpForm from '../forms/partials/SignUpForm.vue'
 
 export default {
   name: 'AuthView',

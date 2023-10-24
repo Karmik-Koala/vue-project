@@ -14,7 +14,7 @@ export const routes = [
   {
     path: "/login",
     name: "login",
-    component: () => import("../auth/AuthView.vue"),
+    component: () => import("../auth/pages/AuthView.vue"),
   },
   {
     path: "/favorites",

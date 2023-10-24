@@ -7,17 +7,17 @@
   <CustomInput name="password1" type="password"/>
   <CustomInput name="password2" type="password"/>
 
-  <pre>values: {{ values }}</pre>
-  <pre>errors: {{ errors }}</pre>
+  <!-- <pre>values: {{ values }}</pre>
+  <pre>errors: {{ errors }}</pre> -->
 
 
 </template>
 
 <script setup>
 import {useForm} from 'vee-validate'
-import { signOnValidationSchema } from './forms/schemas/signOn.schema'
-import FormHeader from './FormHeader.vue';
-import CustomInput from './CustomInput.vue'
+import { signOnValidationSchema } from '../schemas/signOn.schema'
+import FormHeader from '../../components/FormHeader.vue';
+import CustomInput from '../../components/CustomInput.vue'
 
 const {values, errors } = useForm({
   validationSchema: signOnValidationSchema
