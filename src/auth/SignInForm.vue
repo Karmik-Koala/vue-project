@@ -1,27 +1,25 @@
 <template>
   <FormHeader title="CREATE NEW ACCOUNT" subtitle="we are glad to create your account with us" />
-  <CustomInput v-bind="email"/>
-  <CustomInput :type="'password'" v-bind="password"/>
+  <CustomInput name="email" type="email"/>
+  <CustomInput name="password" type="password"/>
   <pre>
     values: {{ values }}
   </pre>
   <pre>
     errors: {{ errors }}
   </pre>
+  <p>Don't have an account <BaseButton @click="$emit('signUp')">SIGN UP</BaseButton></p>
 </template>
 
 <script setup>
 import FormHeader from './FormHeader.vue';
 import {signInValidationSchema} from './forms/schemas/signIn.schema'
-import CustomInput from './CustomInput.vue';
+import CustomInput from './CustomInput.vue'
 import { useForm } from 'vee-validate';
 
-const {values, errors, defineInputBinds} = useForm({
+const {values, errors} = useForm({
   validationSchema: signInValidationSchema
 })
-
-const email = defineInputBinds('email');
-const password = defineInputBinds('password')
 
 
 </script>

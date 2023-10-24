@@ -3,12 +3,26 @@
     title="CREATE NEW ACCOUNT"
     subtitle="we are glad to create your account with us"
   />
+  <CustomInput name="email" type="email"/>
+  <CustomInput name="password1" type="password"/>
+  <CustomInput name="password2" type="password"/>
+
+  <pre>values: {{ values }}</pre>
+  <pre>errors: {{ errors }}</pre>
 
 
 </template>
 
 <script setup>
+import {useForm} from 'vee-validate'
+import { signOnValidationSchema } from './forms/schemas/signOn.schema'
 import FormHeader from './FormHeader.vue';
+import CustomInput from './CustomInput.vue'
+
+const {values, errors } = useForm({
+  validationSchema: signOnValidationSchema
+})
+
 </script>
 
 <style scoped>

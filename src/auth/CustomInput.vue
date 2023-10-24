@@ -1,19 +1,20 @@
 <template>
-  <input :type="type" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" @blur="$emit('blur')" />
+  <label :for="name"></label>
+  <input v-model="value" :type="type || 'text'" />
+  <ul v-if="errors.length">
+    <li v-for="error in errors" :key="error">{{ error }}</li>
+  </ul>
 </template>
 
 <script setup>
-defineProps({
-  type: {
-    type: String,
-    default: 'text'
-  },
-  modelValue: String,
+import { useField } from 'vee-validate';
+
+const props = defineProps({
+  name: String,
+  type: String,
 });
 
-defineEmits(['update:modelValue', 'blur']);
+// The `name` is returned in a function because we want to make sure it stays reactive
+// If the name changes you want `useField` to be able to pick it up
+const { value, errors } = useField(() => props.name, undefined);
 </script>
-
-<style scoped>
-
-</style>
