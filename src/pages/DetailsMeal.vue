@@ -68,7 +68,13 @@ export default {
       this.loading = true;
 
       const info = await getRecipeeInfo(this.id);
-      this.info = info;
+      this.info = {
+        ...info,
+        label: info.recipe.label,
+        image: info.recipe.image,
+        totalNutrients: info.recipe.totalNutrients,
+        id: this.id,
+      };
 
       this.loading = false;
     },
@@ -83,7 +89,7 @@ export default {
       }
 
       this.meals = data.hits
-        .filter((item) => item.recipe.label !== this.info.recipe.label)
+        .filter((item) => item.recipe.label !== this.info?.recipe?.label)
         .slice(0, 4)
         .map((item) => ({
           label: item.recipe.label,

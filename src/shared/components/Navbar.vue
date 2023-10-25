@@ -19,7 +19,7 @@
         </li>
         <li>
           <RouterLink
-            v-if="getAccessToken === ''"
+            v-if="accessToken === ''"
             class="navbar-links"
             :to="{ name: 'login' }"
           >
@@ -57,7 +57,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(useAuthStore, ["getAccessToken"]),
+    ...mapState(useAuthStore, ["accessToken"]),
   },
   methods: {
     ...mapActions(useAuthStore, ["setAccessToken"]),
@@ -77,7 +77,7 @@ export default {
 .header-container {
   position: sticky;
   top: 0;
-  z-index: 5;
+  z-index: 20;
   width: 100%;
   box-sizing: border-box;
   background-color: var(--color-faded-jade);

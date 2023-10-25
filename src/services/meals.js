@@ -1,6 +1,15 @@
-import { getDocs, collection, addDoc, query, where } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  addDoc,
+  deleteDoc,
+  doc,
+  query,
+  where,
+} from "firebase/firestore";
 
 import { db } from "../shared/database/FirebaseConfig";
+import { useAuthStore } from "@/auth/stores/authStore.js";
 import { CONSTANTS } from "@/constants";
 
 const { API } = CONSTANTS;
@@ -37,17 +46,36 @@ export const getListMeals = async (filters) => {
 };
 
 /**
- * Get a list of favorite meals from the database.
+ * Get a list of favorite meals for the currently authenticated user.
  *
- * @returns {Promise} A Promise that resolves to a snapshot of favorite meals.
+ * @returns {Promise<Array<Object>>} A Promise that resolves to an array of favorite meal objects.
  * @example
- * const favoriteMealsSnapshot = await getListFavoriteMeals();
+ * const favoriteMeals = await getListFavoriteMeals();
  */
 export const getListFavoriteMeals = async () => {
-  const itemsCollection = collection(db, "favorites");
-  const snapshot = await getDocs(itemsCollection);
+  const authStore = useAuthStore();
+  const userId = authStore?.user?.uid;
 
-  return snapshot;
+  if (!userId) return [];
+
+  const favoritesRef = collection(db, "favorites");
+  const data = [];
+
+  try {
+    const q = query(favoritesRef, where("userId", "==", userId));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) return data;
+
+    querySnapshot.forEach((doc) => {
+      const meal = doc.data();
+      data.push(meal);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+  return data;
 };
 
 /**
@@ -75,35 +103,37 @@ export const createFavoriteMeal = async (meal) => {
 };
 
 /**
- * Send a user's ID to the database if it doesn't already exist.
+ * Delete a favorite meal from the "favorites" collection by its ID.
  *
- * @param {string} userId - The user's ID to send to the database.
+ * @param {string} mealId - The ID of the meal to delete.
+ * @returns {Promise} A Promise that resolves when the meal is successfully deleted, or rejects on error.
  * @example
- * const userId = '12345';
- * sendUserIdToDatabase(userId);
+ * const mealIdToDelete = MEAL_ID;
+ * deleteFavoriteMeal(mealIdToDelete)
+ *   .then(() => {
+ *     console.log("Meal deleted successfully.");
+ *   })
+ *   .catch((error) => {
+ *     console.error("Error deleting meal:", error);
+ *   });
  */
-export async function sendUserIdToDatabase(userId) {
-  const usuariosRef = collection(db, "favorites");
+export const deleteFavoriteMeal = async (mealId) => {
+  const favoritesRef = collection(db, "favorites");
 
-  // Verificar si el ID de usuario ya existe
-  const q = query(usuariosRef, where("userId", "==", userId));
-  const querySnapshot = await getDocs(q);
+  try {
+    const q = query(favoritesRef, where("id", "==", mealId));
+    const querySnapshot = await getDocs(q);
 
-  if (querySnapshot.empty) {
-    // El ID de usuario no existe, por lo que lo agregamos a la base de datos
-    try {
-      await addDoc(usuariosRef, {
-        userId: userId,
-        // Otros datos del usuario si los tienes
-      });
-      console.log("Usuario agregado a la base de datos");
-    } catch (error) {
-      console.error("Error al agregar usuario:", error);
-    }
-  } else {
-    console.log("El ID de usuario ya existe en la base de datos");
+    if (querySnapshot.empty) return;
+
+    const docToDelete = querySnapshot.docs[0];
+
+    const docRef = doc(db, "favorites", docToDelete.id);
+    await deleteDoc(docRef);
+  } catch (error) {
+    console.error("Error al agregar meals:", error);
   }
-}
+};
 
 /**
  * Get detailed information about a recipe by its ID.

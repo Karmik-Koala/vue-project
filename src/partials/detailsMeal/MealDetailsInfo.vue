@@ -35,7 +35,7 @@
         - {{ ingredient }}
       </p>
     </div>
-    <h2>How to make it (Example)</h2>
+    <h2>How to make it</h2>
     <div class="process">
       <p>1. Preheat your oven to 375°F (190°C).</p>
       <p>

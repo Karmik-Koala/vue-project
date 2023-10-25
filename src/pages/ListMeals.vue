@@ -26,11 +26,11 @@
 import { CONSTANTS } from "@/constants";
 import { mapActions } from "pinia";
 import { useSearchStore } from "@/partials/listMeals/stores/searchStore.js";
-import { getListMeals } from "../../services/meals.js";
-import SearchInput from "../../partials/listMeals/SearchInput.vue";
-import ListRender from "../../partials/listMeals/ListRender.vue";
-import SkeletonListRender from "../../partials/listMeals/SkeletonListRender.vue";
-import NotDataFound from "../../partials/listMeals/NotDataFound.vue";
+import { getListMeals, getListFavoriteMeals } from "@/services/meals";
+import SearchInput from "@/partials/listMeals/SearchInput.vue";
+import ListRender from "@/partials/listMeals/ListRender.vue";
+import SkeletonListRender from "@/partials/listMeals/SkeletonListRender.vue";
+import NotDataFound from "@/partials/listMeals/NotDataFound.vue";
 
 const { API, FILTERS } = CONSTANTS;
 
@@ -50,8 +50,15 @@ export default {
       filters: {},
     };
   },
+  mounted() {
+    this.getFavoriteMealsByUser();
+  },
   methods: {
-    ...mapActions(useSearchStore, ["lastSearch"]),
+    ...mapActions(useSearchStore, ["setLastSearch", "setFavorites"]),
+    async getFavoriteMealsByUser() {
+      const data = await getListFavoriteMeals();
+      this.setFavorites(data);
+    },
     setFilter(filter, value) {
       this.filters = {
         ...this.filters,
@@ -62,8 +69,7 @@ export default {
       this.showNotData = false;
       this.loading = true;
 
-      const useSearch = useSearchStore();
-      useSearch.setLastSearch(this.filters[FILTERS.SEARCH]);
+      this.setLastSearch(this.filters[FILTERS.SEARCH]);
 
       const data = await getListMeals(this.filters);
 
