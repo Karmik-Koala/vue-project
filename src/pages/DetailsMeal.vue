@@ -6,7 +6,7 @@
       <MealDetailsInfo :info="info"></MealDetailsInfo>
     </section>
 
-    <section class="related">
+    <section v-if="meals.length" class="related">
       <h1>You might also like</h1>
       <div class="cards-container">
         <ListRender :items="meals" class="list-render" />
@@ -42,10 +42,23 @@ export default {
       meals: [],
     };
   },
+
   computed: {
     ...mapState(useSearchStore, ["lastSearch"]),
   },
+  watch: {
+    $route(to, from) {
+      const newId = to.params.id;
+      const oldId = from.params.id;
+
+      if (newId !== oldId) {
+        this.getDataMeal();
+        window.scrollTo(0, 0);
+      }
+    },
+  },
   mounted() {
+    window.scrollTo(0, 0);
     this.getDataMeal();
     this.listMeals();
   },
@@ -68,15 +81,18 @@ export default {
         return;
       }
 
-      this.meals = data.hits.slice(0, 4).map((item) => ({
-        label: item.recipe.label,
-        image: item.recipe.image,
-        totalNutrients: item.recipe.totalNutrients,
-        id: item._links.self.href.slice(
-          API.BASE_URL.length + 1,
-          item._links.self.href.indexOf("?type")
-        ),
-      }));
+      this.meals = data.hits
+        .filter((item) => item.recipe.label !== this.info.recipe.label)
+        .slice(0, 4)
+        .map((item) => ({
+          label: item.recipe.label,
+          image: item.recipe.image,
+          totalNutrients: item.recipe.totalNutrients,
+          id: item._links.self.href.slice(
+            API.BASE_URL.length + 1,
+            item._links.self.href.indexOf("?type")
+          ),
+        }));
     },
   },
 };
