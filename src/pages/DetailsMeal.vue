@@ -9,22 +9,14 @@
     <section class="related">
       <h1>You might also like</h1>
       <div class="cards-container">
-        <ListRender
-          :items="[
-            info.recipe,
-            info.recipe,
-            info.recipe,
-            info.recipe,
-            info.recipe,
-          ]"
-          class="list-render"
-        />
+        <ListRender :items="meals" class="list-render" />
       </div>
     </section>
   </div>
 </template>
 
 <script>
+import { CONSTANTS } from "@/constants";
 import { getRecipeeInfo, getListMeals } from "../services/meals.js";
 import { useSearchStore } from "../partials/listMeals/stores/searchStore";
 import { mapState } from "pinia";
@@ -32,6 +24,8 @@ import SkeletonLoader from "../partials/detailsMeal/SkeletonLoader.vue";
 import ListRender from "../partials/listMeals/ListRender.vue";
 import MealDetailsCard from "../partials/detailsMeal/MealDetailsCard.vue";
 import MealDetailsInfo from "../partials/detailsMeal/MealDetailsInfo.vue";
+
+const { API, FILTERS } = CONSTANTS;
 
 export default {
   name: "DetailsMeal",
@@ -45,19 +39,45 @@ export default {
     return {
       loading: true,
       info: "",
-      // filters: {}
+      meals: [],
     };
   },
   computed: {
     ...mapState(useSearchStore, ["lastSearch"]),
   },
-  async mounted() {
-    // const data = await getListMeals(this.filters)
+  mounted() {
+    this.getDataMeal();
+    this.listMeals();
+  },
+  methods: {
+    async getDataMeal() {
+      this.loading = true;
 
-    this.loading = true;
-    const info = await getRecipeeInfo(this.$route.params.id);
-    this.info = info;
-    this.loading = false;
+      const info = await getRecipeeInfo(this.$route.params.id);
+      this.info = info;
+
+      this.loading = false;
+    },
+    async listMeals() {
+      const filters = {
+        [FILTERS.SEARCH]: this.lastSearch,
+      };
+      const data = await getListMeals(filters);
+
+      if (!data.hits.length) {
+        return;
+      }
+
+      this.meals = data.hits.slice(0, 4).map((item) => ({
+        label: item.recipe.label,
+        image: item.recipe.image,
+        totalNutrients: item.recipe.totalNutrients,
+        id: item._links.self.href.slice(
+          API.BASE_URL.length + 1,
+          item._links.self.href.indexOf("?type")
+        ),
+      }));
+    },
   },
 };
 </script>
