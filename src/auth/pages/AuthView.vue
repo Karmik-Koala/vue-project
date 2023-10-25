@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import SignInForm from './SignInForm.vue'
-import SignUpForm from './SignUpForm.vue'
+import SignInForm from '../forms/partials/SignInForm.vue'
+import SignUpForm from '../forms/partials/SignUpForm.vue'
 
 export default {
   name: 'AuthView',
@@ -42,7 +42,7 @@ export default {
   position: fixed;
   top: 20vh;
   z-index: -1;
-  opacity: 40%;
+  opacity: 10%;
 }
 
 .image-container img {
@@ -60,14 +60,6 @@ export default {
     margin-left: auto;
 
   }
-
-  .form-container {
-    display: flex;
-    flex-basis: 50%;
-    flex-direction: column;
-  }
-
-
 
   .image-container {
     position: static;

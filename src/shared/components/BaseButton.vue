@@ -13,7 +13,7 @@ export default {
       type: String
     }
   },
-  // emits: ['clicked'],
+  emits: ['clicked'],
 
 }
 </script>

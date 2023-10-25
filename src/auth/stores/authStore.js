@@ -5,8 +5,8 @@ export const useAuthStore = defineStore("auth", {
     return {
       accessToken: null,
       user: {
-        uid: "wdawdwad",
-        email: "dieguito777@gmail.com",
+        uid: null,
+        email: null,
       },
     };
   },

@@ -32,3 +32,11 @@
   --lateral-margin: 24px;
   --slider-element-heigth: 300px;
 }
+
+@media screen and (width >=768px) {}
+
+@media screen and (width >=1024px) {}
+
+@media screen and (width >=1200px) {}
+
+@media screen and (width >=2560px) {}
