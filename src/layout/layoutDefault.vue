@@ -8,7 +8,7 @@
     <footer class="footer-distributed">
       <div class="footer-left">
         <div class="title-logo">
-          <img class="footer-image" src="../assets/images/logo-app.webp">
+          <img class="footer-image" src="../assets/images/logo-app.webp" />
           <h3>Meal<span>Mate</span></h3>
         </div>
       </div>
@@ -29,10 +29,13 @@
       <div class="footer-right">
         <p class="footer-company-about">
           <span>About the company</span>
-          Download 'MealMate' now and make every meal a delicious and nutritious adventure!"
+          Download 'MealMate' now and make every meal a delicious and nutritious
+          adventure!"
         </p>
         <div class="footer-icons">
-          <a href="https://github.com/Karmik-Koala/"><i class="fa fa-github fa-lg"></i></a>
+          <a href="https://github.com/Karmik-Koala/"
+            ><i class="fa fa-github fa-lg"></i
+          ></a>
         </div>
       </div>
     </footer>
@@ -61,6 +64,7 @@ export default {
 
 .main {
   padding: 5%;
+  min-height: 100vh;
 }
 
 .footer-distributed {
@@ -112,7 +116,11 @@ export default {
   align-items: center;
   font-family: var(--font-family-archivo-black);
   font-size: var(--font-size-ns);
-  background: linear-gradient(to right, var(--color-grandis) 0%, var(--color-salmon) 70%);
+  background: linear-gradient(
+    to right,
+    var(--color-grandis) 0%,
+    var(--color-salmon) 70%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

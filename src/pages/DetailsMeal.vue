@@ -1,27 +1,35 @@
 <template>
   <SkeletonLoader v-if="loading" />
   <div v-else>
-    <section class="meal-section ">
+    <section class="meal-section">
       <MealDetailsCard :info="info"></MealDetailsCard>
       <MealDetailsInfo :info="info"></MealDetailsInfo>
     </section>
 
     <section class="related">
-      <h1> You might also like </h1>
+      <h1>You might also like</h1>
       <div class="cards-container">
-        <ListRender :items="[info.recipe, info.recipe, info.recipe, info.recipe, info.recipe]" class="list-render" />
+        <ListRender
+          :items="[
+            info.recipe,
+            info.recipe,
+            info.recipe,
+            info.recipe,
+            info.recipe,
+          ]"
+          class="list-render"
+        />
       </div>
     </section>
   </div>
 </template>
 
 <script>
-
-import { getRecipeeInfo, getListMeals } from "../services/meals.js"
+import { getRecipeeInfo, getListMeals } from "../services/meals.js";
 import { useSearchStore } from "../partials/listMeals/stores/searchStore";
 import { mapState } from "pinia";
-import SkeletonLoader from '../partials/detailsMeal/SkeletonLoader.vue'
-import ListRender from '../partials/listMeals/ListRender.vue'
+import SkeletonLoader from "../partials/detailsMeal/SkeletonLoader.vue";
+import ListRender from "../partials/listMeals/ListRender.vue";
 import MealDetailsCard from "../partials/detailsMeal/MealDetailsCard.vue";
 import MealDetailsInfo from "../partials/detailsMeal/MealDetailsInfo.vue";
 
@@ -31,25 +39,25 @@ export default {
     SkeletonLoader,
     ListRender,
     MealDetailsCard,
-    MealDetailsInfo
+    MealDetailsInfo,
   },
   data() {
     return {
       loading: true,
-      info: '',
+      info: "",
       // filters: {}
     };
   },
   computed: {
-    ...mapState(useSearchStore, ['lastSearch'])
+    ...mapState(useSearchStore, ["lastSearch"]),
   },
   async mounted() {
     // const data = await getListMeals(this.filters)
 
-    this.loading = true
-    const info = await getRecipeeInfo(this.$route.params.id)
-    this.info = info
-    this.loading = false
+    this.loading = true;
+    const info = await getRecipeeInfo(this.$route.params.id);
+    this.info = info;
+    this.loading = false;
   },
 };
 </script>
@@ -59,9 +67,11 @@ h1 {
   font-family: var(--font-family-archivo-black);
   font-size: var(--font-size-xl);
   margin: 0px 0px 30px 0px;
-  background: linear-gradient(to right,
-      var(--color-ferra) 0%,
-      var(--color-ferra-light) 30%);
+  background: linear-gradient(
+    to right,
+    var(--color-ferra) 0%,
+    var(--color-ferra-light) 30%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -112,19 +122,19 @@ h1 {
   }
 
   .related h1 {
-    font-size: var(--font-size-lg)
+    font-size: var(--font-size-lg);
   }
 }
 
 @media screen and (width >=1024px) {
   .meal-section {
-    flex-direction: column;
+    flex-direction: row;
   }
 }
 
 @media screen and (width >=1200px) {
   .meal-section {
-    flex-direction: row;
+    /* flex-direction: row; */
   }
 }
 </style>
