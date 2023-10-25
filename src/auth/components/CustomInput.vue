@@ -4,11 +4,14 @@
     <div class="input-and-tooltip">
 
       <input v-model="value" :type="type || 'text'" :class="{inputError: errors.length}" class="input" />
-      <BaseTooltip v-show="errors.length">
+      <BaseTooltip v-show="errors.length" class="error-tooltip">
         <ul v-if="errors.length">
           <li v-for="error in errors" :key="error" :class="{error}">{{ error }}</li>
         </ul>
       </BaseTooltip>
+      <div class="underneath-error-container">
+        <span v-for="error in errors" :key="error" class="underneath-error-message">{{ error }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -31,7 +34,7 @@ const { value, errors } = useField(() => props.name, undefined);
 
 .input-and-tooltip {
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 .input {
   border-radius: 10px;
@@ -39,11 +42,35 @@ const { value, errors } = useField(() => props.name, undefined);
 }
 .inputError {
     border: 1px solid red;
-
 }
 
 .error {
   color: red;
+}
+
+  .error-tooltip {
+    display: none;
+  }
+
+.underneath-error-message {
+  font-size: var(--font-size-xxs);
+  color: red;
+}
+
+
+@media screen and (width >= 768px) {
+
+  .input-and-tooltip {
+    flex-direction: row;
+      align-items: center;
+  }
+  .error-tooltip {
+    display: initial;
+  }
+
+  .underneath-error-message {
+    display: none;
+  }
 }
 
 

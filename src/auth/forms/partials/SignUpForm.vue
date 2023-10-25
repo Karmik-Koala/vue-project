@@ -7,8 +7,8 @@
   <CustomInput name="password1" type="password"/>
   <CustomInput name="password2" type="password"/>
 
-  <!-- <pre>values: {{ values }}</pre>
-  <pre>errors: {{ errors }}</pre> -->
+  <pre>values: {{ values }}</pre>
+  <pre>errors: {{ errors }}</pre>
 
 
 </template>
