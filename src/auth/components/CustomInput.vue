@@ -2,7 +2,6 @@
   <div class="form-group">
     <label :for="name"></label>
     <div class="input-and-tooltip">
-
       <input v-model="value" :type="type || 'text'" :class="{inputError: errors.length}" class="input" />
       <BaseTooltip v-show="errors.length" class="error-tooltip">
         <ul v-if="errors.length">
@@ -57,6 +56,10 @@ const { value, errors } = useField(() => props.name, undefined);
   color: red;
 }
 
+span {
+  display: block;
+}
+
 
 @media screen and (width >= 768px) {
 
@@ -70,6 +73,12 @@ const { value, errors } = useField(() => props.name, undefined);
 
   .underneath-error-message {
     display: none;
+  }
+
+  .form-group {
+    display: flex;
+    justify-content: center;
+
   }
 }
 

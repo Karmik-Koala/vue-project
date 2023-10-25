@@ -34,7 +34,7 @@ export default {
 
   & .subtitle {
     position: absolute;
-    bottom: 5px;
+    bottom: -10px;
     left: 0;
     right: 0;
     font-size: var(--font-size-xxs);

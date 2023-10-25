@@ -42,7 +42,7 @@ export default {
   position: fixed;
   top: 20vh;
   z-index: -1;
-  opacity: 40%;
+  opacity: 10%;
 }
 
 .image-container img {
@@ -60,14 +60,6 @@ export default {
     margin-left: auto;
 
   }
-
-  .form-container {
-    display: flex;
-    flex-basis: 50%;
-    flex-direction: column;
-  }
-
-
 
   .image-container {
     position: static;
