@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container-title">
-      <h2 class="title">Customized Cooking</h2>
+      <h2 class="title stroke shadow">Find culinary inspiration</h2>
       <p class="subtitle">Discover recipes and see their nutritional data.</p>
     </div>
     <div>
@@ -108,14 +108,13 @@ export default {
 
   & .title {
     font-family: var(--font-family-archivo-black);
-    font-size: var(--font-size-lg);
-    background: linear-gradient(
-      to right,
-      var(--color-ferra) 0%,
-      var(--color-ferra-light) 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: var(--font-size-xl);
+    -webkit-text-stroke-width: 1px;
+    -moz-text-stroke-width: 1px;
+    -webkit-text-stroke-color: var(--color-ferra);
+    -moz-text-stroke-color: var(--color-ferra);
+    text-shadow: 0.3rem 0.3rem var(--color-salmon);
+    color: var(--color-grandis);
     text-align: center;
     margin-bottom: 5px;
   }

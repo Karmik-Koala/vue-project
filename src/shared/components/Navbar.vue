@@ -240,7 +240,7 @@ export default {
       display: flex;
       align-items: center;
       max-height: 100%;
-      font-size: var(--font-size-sm);
+      font-size: var(--font-size-md);
     }
   }
   .nav-button {

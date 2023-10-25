@@ -104,13 +104,12 @@ h1 {
   font-family: var(--font-family-archivo-black);
   font-size: var(--font-size-xl);
   margin: 0px 0px 30px 0px;
-  background: linear-gradient(
-    to right,
-    var(--color-ferra) 0%,
-    var(--color-ferra-light) 30%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 1px;
+  -moz-text-stroke-width: 1px;
+  -webkit-text-stroke-color: var(--color-ferra);
+  -moz-text-stroke-color: var(--color-ferra);
+  text-shadow: 0.3rem 0.3rem var(--color-salmon);
+  color: var(--color-grandis);
 }
 
 .go-back {
