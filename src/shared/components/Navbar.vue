@@ -25,9 +25,9 @@
           >
             {{ "Sign in" }}
           </RouterLink>
-          <button v-else class="nav-button navbar-links" @click="logout">
+          <div v-else class="nav-button navbar-links" @click="logout">
             Sign out
-          </button>
+          </div>
         </li>
       </ul>
     </nav>
@@ -135,6 +135,7 @@ export default {
         font-weight: bold;
         color: var(--color-white);
         display: inline-block;
+        cursor: pointer;
 
         &::after {
           bottom: 0;
