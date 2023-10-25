@@ -40,7 +40,7 @@ export default {
   }
 }
 
-@media screen and (width >= 768px) {
+@media screen and (width >=768px) {
   .container {
     & img {
       width: 50%;
@@ -48,7 +48,7 @@ export default {
   }
 }
 
-@media screen and (width >= 1024px) {
+@media screen and (width >=1024px) {
   .container {
     & img {
       width: 40%;
@@ -56,7 +56,7 @@ export default {
   }
 }
 
-@media screen and (width >= 1200px) {
+@media screen and (width >=1200px) {
   .container {
     & img {
       width: 30%;
@@ -64,10 +64,10 @@ export default {
   }
 }
 
-@media screen and (width >= 2560px) {
+@media screen and (width >=2560px) {
   .container {
     & img {
-      width: 50%;
+      width: 20%;
     }
 
     & p {
