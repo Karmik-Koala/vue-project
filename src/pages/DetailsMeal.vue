@@ -1,13 +1,6 @@
 <template>
   <SkeletonLoader v-if="loading" />
   <div v-else>
-    <!-- <RouterLink to="/">
-      <div class="go-back">
-        <div class="button-back">
-          <img width="40" height="40" src="https://img.icons8.com/ios-filled/50/back.png" alt="back" />
-        </div>
-      </div>
-    </RouterLink> -->
     <section class="meal-section ">
       <MealDetailsCard :info="info"></MealDetailsCard>
       <MealDetailsInfo :info="info"></MealDetailsInfo>
@@ -24,7 +17,9 @@
 
 <script>
 
-import { getRecipeeInfo } from "../services/meals.js"
+import { getRecipeeInfo, getListMeals } from "../services/meals.js"
+import { useSearchStore } from "../partials/listMeals/stores/searchStore";
+import { mapState } from "pinia";
 import SkeletonLoader from '../partials/detailsMeal/SkeletonLoader.vue'
 import ListRender from '../partials/listMeals/ListRender.vue'
 import MealDetailsCard from "../partials/detailsMeal/MealDetailsCard.vue";
@@ -42,9 +37,15 @@ export default {
     return {
       loading: true,
       info: '',
+      // filters: {}
     };
   },
+  computed: {
+    ...mapState(useSearchStore, ['lastSearch'])
+  },
   async mounted() {
+    // const data = await getListMeals(this.filters)
+
     this.loading = true
     const info = await getRecipeeInfo(this.$route.params.id)
     this.info = info
