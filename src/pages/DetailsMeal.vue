@@ -35,6 +35,12 @@ export default {
     MealDetailsCard,
     MealDetailsInfo,
   },
+  props: {
+    id: {
+      type: String,
+      default: "",
+    },
+  },
   data() {
     return {
       loading: true,
@@ -47,14 +53,9 @@ export default {
     ...mapState(useSearchStore, ["lastSearch"]),
   },
   watch: {
-    $route(to, from) {
-      const newId = to.params.id;
-      const oldId = from.params.id;
-
-      if (newId !== oldId) {
-        this.getDataMeal();
-        window.scrollTo(0, 0);
-      }
+    id() {
+      this.getDataMeal();
+      window.scrollTo(0, 0);
     },
   },
   mounted() {
@@ -66,7 +67,7 @@ export default {
     async getDataMeal() {
       this.loading = true;
 
-      const info = await getRecipeeInfo(this.$route.params.id);
+      const info = await getRecipeeInfo(this.id);
       this.info = info;
 
       this.loading = false;

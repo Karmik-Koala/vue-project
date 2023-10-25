@@ -9,6 +9,7 @@ export const routes = [
   {
     path: "/details/:id",
     name: "detailsMeal",
+    props: true,
     component: () => import("../pages/DetailsMeal.vue"),
   },
   {
