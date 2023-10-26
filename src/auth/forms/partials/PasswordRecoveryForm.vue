@@ -4,7 +4,7 @@
     <p class="recovery-message">Enter your email address, and we will send you instructions to recover your account.</p>
     <div class="recovery-group">
       <CustomInput name="email" type="email"/>
-      <BaseButton @click.prevent="resetPassword">SEND</BaseButton>
+      <BaseButton @click.prevent="resetPassword" :disabled="Object.keys(errors).length || !values.email">SEND</BaseButton>
     </div>
 
 </template>
@@ -20,7 +20,7 @@ import { SIGN_IN_FORM } from "../constants/formTypes";
 
 
 const emit = defineEmits(['display-form'])
-const {values} = useForm({
+const {values, errors} = useForm({
   validationSchema: passwordRecoveryValidationSchema
 })
 

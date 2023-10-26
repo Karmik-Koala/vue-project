@@ -9,7 +9,7 @@
     <CustomInput name="repeat_password" type="password"/>
     <div class="button-group">
       <BaseButton @click.prevent="goToSignIn">GO BACK</BaseButton>
-      <BaseButton @click.prevent="signUp">SIGN UP</BaseButton>
+      <BaseButton @click.prevent="signUp" :disabled="Object.keys(errors).length || !values.email || !values.password || !values.repeat_password" >SIGN UP</BaseButton>
     </div>
   </form>
 </template>
@@ -27,7 +27,7 @@ import { SIGN_IN_FORM } from '../constants/formTypes';
 
 const emit = defineEmits(['display-form'])
 const router = useRouter()
-const {values } = useForm({
+const {values, errors } = useForm({
   validationSchema: signOnValidationSchema
 })
 

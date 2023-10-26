@@ -1,9 +1,13 @@
 <template>
   <div class="login-container">
     <div class="form-container">
-      <SignInForm  @display-form="displayForm"/>
+      <SignInForm   @display-form="displayForm"/>
       <SignUpForm  @display-form="displayForm"/>
       <PasswordRecoveryForm  @display-form="displayForm"/>
+
+            <!-- <SignInForm v-if="currentForm.value === SIGN_IN_FORM"  @display-form="displayForm"/>
+        <SignUpForm v-if="currentForm.value === SIGN_ON_FORM"  @display-form="displayForm"/>
+        <PasswordRecoveryForm v-if="currentForm.value === RECOVERY_FORM" @display-form="displayForm"/> -->
     </div>
     <div class="image-container">
       <img src="/logo-app.webp" alt="">

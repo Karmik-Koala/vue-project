@@ -4,8 +4,9 @@
     <CustomInput name="email" type="email"/>
     <CustomInput name="password" type="password"/>
     <div class="login-button-wrapper">
-      <BaseButton @click.prevent="authUser" class="login-button">LOGIN</BaseButton>
+      <BaseButton @click.prevent="authUser" class="login-button" :disabled="Object.keys(errors).length || !values.email || !values.password">LOGIN</BaseButton>
     </div>
+    <pre>{{ submitForm }}</pre>
   </form>
   <div class="socialmedia-auth-container">
     <GoogleLogin/>
@@ -32,7 +33,7 @@ import { SIGN_ON_FORM, RECOVERY_FORM } from '../constants/formTypes';
 
 const emit = defineEmits(['display-form'])
 
-const {values} = useForm({
+const {values, errors } = useForm({
   validationSchema: signInValidationSchema
 })
 

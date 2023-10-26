@@ -1,5 +1,5 @@
 <template>
-  <button class="base-button" :type="type">
+  <button class="base-button" :type="type" :disabled="isDisabled">
     <slot></slot>
   </button>
 </template>
@@ -11,7 +11,14 @@ export default {
     type: {
       default: 'submit',
       type: String
+    },
+    isDisabled: {
+      type: Boolean,
+      default: false
     }
+  },
+  mounted(){
+    console.log(this.disabled)
   },
   emits: ['clicked'],
 
@@ -33,6 +40,11 @@ export default {
     cursor: pointer;
     color: var(--color-white);
     transition: all 0.3s ease 0s, left 0.3s ease 0s;
+  }
+
+  &:disabled{
+    background-color: rgb(179, 172, 172);
+    
   }
 }
 </style>
