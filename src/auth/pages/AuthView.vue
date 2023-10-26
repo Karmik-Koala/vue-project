@@ -1,13 +1,13 @@
 <template>
   <div class="login-container">
     <div class="form-container">
-      <SignInForm   @display-form="displayForm"/>
+      <!-- <SignInForm   @display-form="displayForm"/>
       <SignUpForm  @display-form="displayForm"/>
-      <PasswordRecoveryForm  @display-form="displayForm"/>
+      <PasswordRecoveryForm  @display-form="displayForm"/> -->
 
-        <SignInForm v-if="currentForm.value === SIGN_IN_FORM"  @display-form="displayForm"/>
-        <SignUpForm v-if="currentForm.value === SIGN_ON_FORM"  @display-form="displayForm"/>
-        <PasswordRecoveryForm v-if="currentForm.value === RECOVERY_FORM" @display-form="displayForm"/>
+        <SignInForm v-if="currentForm === 'sign-in'"  @display-form="displayFormEvent"/>
+        <SignUpForm v-if="currentForm === 'sign-on'"  @display-form="displayFormEvent"/>
+        <PasswordRecoveryForm v-if="currentForm === 'recovery'" @display-form="displayFormEvent"/>
     </div>
     <div class="image-container">
       <img src="/logo-app.webp" alt="">
@@ -15,19 +15,31 @@
   </div>
 </template>
 
-<script setup>
+<script >
   import SignInForm from '../forms/partials/SignInForm.vue'
   import SignUpForm from '../forms/partials/SignUpForm.vue'
   import PasswordRecoveryForm from '../forms/partials/PasswordRecoveryForm.vue'
   import { SIGN_IN_FORM, RECOVERY_FORM, SIGN_ON_FORM } from '../forms/constants/formTypes';
-import { ref } from 'vue';
 
-  const currentForm = ref(SIGN_IN_FORM)
+  export default {
+    name: 'AuthView',
+    components: {
+      SignInForm,
+      SignUpForm,
+      PasswordRecoveryForm
 
-  const displayForm = (formType) => {
-     currentForm.value =  formType
-    alert(currentForm.value)
+    },
+    data(){
+      return {
+        displayForm: 'sign-in'
+      }
+    },
+    methods: {
+      displayFormEvent(event){
+        this.displayForm = event
+      }
     }
+  }
 
 </script>
 
