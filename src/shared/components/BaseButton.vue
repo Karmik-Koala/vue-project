@@ -17,9 +17,6 @@ export default {
       default: false
     }
   },
-  mounted(){
-    console.log(this.disabled)
-  },
   emits: ['clicked'],
 
 }

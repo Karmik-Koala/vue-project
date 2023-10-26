@@ -6,7 +6,6 @@
     <div class="login-button-wrapper">
       <BaseButton @click.prevent="authUser" class="login-button" :disabled="Object.keys(errors).length || !values.email || !values.password">LOGIN</BaseButton>
     </div>
-    <pre>{{ submitForm }}</pre>
   </form>
   <div class="socialmedia-auth-container">
     <GoogleLogin/>
@@ -44,7 +43,6 @@ const authUser = async () => {
     const auth = getAuth()
     const {user: {accessToken, uid, email}} = await signInWithEmailAndPassword(auth, values.email, values.password)
     setAuth(email, uid, accessToken)
-      console.log(email, uid, accessToken);
     router.push('/')
   } catch (error) {
     alert(error)

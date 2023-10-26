@@ -5,9 +5,9 @@
       <SignUpForm  @display-form="displayForm"/>
       <PasswordRecoveryForm  @display-form="displayForm"/>
 
-            <!-- <SignInForm v-if="currentForm.value === SIGN_IN_FORM"  @display-form="displayForm"/>
+        <SignInForm v-if="currentForm.value === SIGN_IN_FORM"  @display-form="displayForm"/>
         <SignUpForm v-if="currentForm.value === SIGN_ON_FORM"  @display-form="displayForm"/>
-        <PasswordRecoveryForm v-if="currentForm.value === RECOVERY_FORM" @display-form="displayForm"/> -->
+        <PasswordRecoveryForm v-if="currentForm.value === RECOVERY_FORM" @display-form="displayForm"/>
     </div>
     <div class="image-container">
       <img src="/logo-app.webp" alt="">
@@ -23,12 +23,14 @@
 import { ref } from 'vue';
 
   const currentForm = ref(SIGN_IN_FORM)
+
   const displayForm = (formType) => {
      currentForm.value =  formType
     alert(currentForm.value)
     }
 
 </script>
+
 
 <style scoped>
 .image-container {
