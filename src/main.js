@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import router from "./router";
 import { createPinia } from "pinia";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
-import BeautifyTextDirective from './shared/directives/beautifyText'
+import BeautifyTextDirective from './shared/directives/BeautifyTextDirective'
 
 import "./shared/css/normalize.css";
 import "./shared/css/variables.css";
