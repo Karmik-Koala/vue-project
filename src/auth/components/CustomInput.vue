@@ -36,6 +36,7 @@ const { value, errors } = useField(() => props.name, undefined);
   --input-error-color: red;
   display: flex;
   flex-direction: column;
+  font-family: var(--font-family-robot);
 }
 
 .input-and-error-group {

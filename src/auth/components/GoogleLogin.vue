@@ -7,9 +7,10 @@
 <script setup>
 import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
 import { setAuth } from '../utils/setAuth';
+import { useRouter } from 'vue-router';
 const googleProvider = new GoogleAuthProvider()
 const auth = getAuth();
-
+const router = useRouter()
 
 const loginGoogle = async () => {
   
@@ -20,7 +21,7 @@ const loginGoogle = async () => {
     } = result;
     GoogleAuthProvider.credentialFromResult(result);
     setAuth(email, uid, accessToken)
-    // this.$router.push("/");
+    router.push('/')
   } catch (error) {
     alert("google login failed");
   }

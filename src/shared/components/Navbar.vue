@@ -19,7 +19,7 @@
         </li>
         <li>
           <RouterLink
-            v-if="accessToken === ''"
+            v-if="accessToken == null"
             class="navbar-links"
             :to="{ name: 'login' }"
           >
@@ -39,6 +39,7 @@ import { RouterLink } from "vue-router";
 import { mapState, mapActions } from "pinia";
 import Logo from "@/assets/images/logo-app.webp";
 import { useAuthStore } from "../../auth/stores/authStore";
+import { normalizeRules } from "vee-validate";
 
 export default {
   name: "NavbarComponent",
@@ -60,9 +61,10 @@ export default {
     ...mapState(useAuthStore, ["accessToken"]),
   },
   methods: {
-    ...mapActions(useAuthStore, ["setAccessToken"]),
+    ...mapActions(useAuthStore, ["setAccessToken", "setUser"]),
     logout() {
-      this.setAccessToken("");
+      this.setAccessToken(null);
+      this.setUser(null)
       this.$router.push("/");
     },
   },

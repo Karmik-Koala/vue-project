@@ -7,9 +7,11 @@
 <script setup>
 import { FacebookAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
 import { setAuth } from '../utils/setAuth';
+import { useRouter } from 'vue-router';
 
 const googleProvider = new FacebookAuthProvider()
 const auth = getAuth();
+const router = useRouter()
 
 const loginFacebook = async () => {
   try {
@@ -19,9 +21,7 @@ const loginFacebook = async () => {
     } = result;
     FacebookAuthProvider.credentialFromResult(result);
         setAuth(email, uid, accessToken)
-    // this.setAccessToken(idToken);
-    // this.setUser({ email, uid });
-    // this.$router.push("/");
+    router.push('/')
   } catch (error) {
     alert("google login failed");
     console.log(error)
