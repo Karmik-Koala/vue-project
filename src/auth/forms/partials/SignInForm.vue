@@ -12,7 +12,8 @@
     <GithubLogin/>
     <FacebookLogin/>
   </div>
-  <p class="sign-up-msg">Don't have an account? <BaseButton @click="$emit('signUp')">SIGN UP</BaseButton></p>
+  <p class="sign-up-msg" @click="goToSignOn">Don't have an account? Sign Up</p>
+  <p class="recovery-msg" @click="goToRecovery">Account recovery</p>
 </template>
 
 <script setup>
@@ -27,6 +28,9 @@ import GithubLogin from '../../components/GithubLogin.vue';
 import FacebookLogin from '../../components/FacebookLogin.vue';
 import { setAuth } from '../../utils/setAuth';
 import { useRouter } from 'vue-router';
+import { SIGN_ON_FORM, RECOVERY_FORM } from '../constants/formTypes';
+
+const emit = defineEmits(['display-form'])
 
 const {values} = useForm({
   validationSchema: signInValidationSchema
@@ -46,7 +50,14 @@ const authUser = async () => {
   }
 }
 
-defineEmits(['signUp'])
+const goToSignOn = () => {
+  emit('display-form', SIGN_ON_FORM)
+}
+
+const goToRecovery = () => {
+  emit('display-form', RECOVERY_FORM)
+}
+
 
 </script>
 
@@ -76,15 +87,21 @@ defineEmits(['signUp'])
   }
 }
 
-.sign-up-msg {
-  text-align: left;
+.sign-up-msg,
+.recovery-msg{
+  color: var(--color-salmon);
+  padding: 5px 0;
+  font-weight: bold;
+  text-align: right;
+  cursor: pointer;
 }
 
 
-
 @media screen and (width >=768px) {
-  .sign-up-msg {
-  text-align: right;
+.sign-up-msg,
+.recovery-msg{
+  text-align: left;
+  margin-left: 4rem;
 }
 .form {
   text-align: center;

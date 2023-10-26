@@ -1,8 +1,9 @@
 <template>
   <div class="login-container">
     <div class="form-container">
-      <SignInForm v-if="userAlreadyExist" @sign-up="handleSignUp" />
-      <SignUpForm v-else @sign-in="handleSignIn" />
+      <SignInForm  @display-form="displayForm"/>
+      <SignUpForm  @display-form="displayForm"/>
+      <PasswordRecoveryForm  @display-form="displayForm"/>
     </div>
     <div class="image-container">
       <img src="/logo-app.webp" alt="">
@@ -10,30 +11,18 @@
   </div>
 </template>
 
-<script>
-import SignInForm from '../forms/partials/SignInForm.vue'
-import SignUpForm from '../forms/partials/SignUpForm.vue'
+<script setup>
+  import SignInForm from '../forms/partials/SignInForm.vue'
+  import SignUpForm from '../forms/partials/SignUpForm.vue'
+  import PasswordRecoveryForm from '../forms/partials/PasswordRecoveryForm.vue'
+  import { SIGN_IN_FORM, RECOVERY_FORM, SIGN_ON_FORM } from '../forms/constants/formTypes';
+import { ref } from 'vue';
 
-export default {
-  name: 'AuthView',
-  components: {
-    SignInForm,
-    SignUpForm
-  },
-  data() {
-    return {
-      userAlreadyExist: true
+  const currentForm = ref(SIGN_IN_FORM)
+  const displayForm = (formType) => {
+     currentForm.value =  formType
+    alert(currentForm.value)
     }
-  },
-  methods: {
-    handleSignUp() {
-      this.userAlreadyExist = false
-    },
-    handleSignIn() {
-      this.userAlreadyExist = true
-    }
-  },
-}
 
 </script>
 

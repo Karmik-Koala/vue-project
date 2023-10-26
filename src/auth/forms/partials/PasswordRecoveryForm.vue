@@ -4,7 +4,7 @@
     <p class="recovery-message">Enter your email address, and we will send you instructions to recover your account.</p>
     <div class="recovery-group">
       <CustomInput name="email" type="email"/>
-      <BaseButton @click.prevent="goBack">SEND</BaseButton>
+      <BaseButton @click.prevent="resetPassword">SEND</BaseButton>
     </div>
 
 </template>
@@ -16,18 +16,19 @@ import CustomInput from "../../components/CustomInput.vue";
 import { passwordRecoveryValidationSchema } from '../schemas/passwordRecovery.scheme'
 import FormHeader from "../../components/FormHeader.vue";
 import BaseButton from "../../../shared/components/BaseButton.vue";
+import { SIGN_IN_FORM } from "../constants/formTypes";
 
+
+const emit = defineEmits(['display-form'])
 const {values} = useForm({
   validationSchema: passwordRecoveryValidationSchema
 })
 
 const resetPassword = () => {
-  
   sendPasswordResetEmail(getAuth(), values.email)
     .then(() => alert('mail enviado'), () => alert('error envio'))
+    .then(() => emit('display-form', SIGN_IN_FORM))
 };
-
-const goToLogin = () => { alert('hola ka se')}
 </script>
 
 <style scoped>

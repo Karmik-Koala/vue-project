@@ -8,7 +8,7 @@
     <CustomInput name="password" type="password"/>
     <CustomInput name="repeat_password" type="password"/>
     <div class="button-group">
-      <BaseButton @click.prevent="goBack">GO BACK</BaseButton>
+      <BaseButton @click.prevent="goToSignIn">GO BACK</BaseButton>
       <BaseButton @click.prevent="signUp">SIGN UP</BaseButton>
     </div>
   </form>
@@ -23,7 +23,9 @@ import FormHeader from '../../components/FormHeader.vue';
 import CustomInput from '../../components/CustomInput.vue'
 import BaseButton from '../../../shared/components/BaseButton.vue';
 import { setAuth } from '../../utils/setAuth';
+import { SIGN_IN_FORM } from '../constants/formTypes';
 
+const emit = defineEmits(['display-form'])
 const router = useRouter()
 const {values } = useForm({
   validationSchema: signOnValidationSchema
@@ -39,8 +41,8 @@ const signUp = async () => {
   }
 }
 
-const goBack = () => {
-  
+const goToSignIn = () => {
+  emit('display-form', SIGN_IN_FORM)
 }
 
 </script>
