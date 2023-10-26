@@ -1,18 +1,17 @@
 <template>
-  <SkeletonLoader v-if="loading" />
-  <div v-else>
-    <section class="meal-section">
-      <MealDetailsCard :info="info"></MealDetailsCard>
-      <MealDetailsInfo :info="info"></MealDetailsInfo>
-    </section>
+  <section class="meal-section">
+    <SkeletonMealDetailsCard v-if="loading" />
+    <MealDetailsCard v-else :info="info"></MealDetailsCard>
+    <SkeletonMealDetailsInfo v-if="loading" />
+    <MealDetailsInfo v-else :info="info"></MealDetailsInfo>
+  </section>
 
-    <section v-if="meals.length" class="related">
-      <h1>You might also like</h1>
-      <div class="cards-container">
-        <ListRender :items="meals" class="list-render" />
-      </div>
-    </section>
-  </div>
+  <section v-if="meals.length" class="related">
+    <h1>You might also like</h1>
+    <div class="cards-container">
+      <ListRender :items="meals" class="list-render" />
+    </div>
+  </section>
 </template>
 
 <script>
@@ -20,7 +19,8 @@ import { CONSTANTS } from "@/constants";
 import { getRecipeeInfo, getListMeals } from "../services/meals.js";
 import { useSearchStore } from "../partials/listMeals/stores/searchStore";
 import { mapState } from "pinia";
-import SkeletonLoader from "../partials/detailsMeal/SkeletonLoader.vue";
+import SkeletonMealDetailsCard from "../shared/components/skeletons/SkeletonMealDetailsCard.vue";
+import SkeletonMealDetailsInfo from "../shared/components/skeletons/SkeletonMealDetailsInfo.vue";
 import ListRender from "../partials/listMeals/ListRender.vue";
 import MealDetailsCard from "../partials/detailsMeal/MealDetailsCard.vue";
 import MealDetailsInfo from "../partials/detailsMeal/MealDetailsInfo.vue";
@@ -30,7 +30,8 @@ const { API, FILTERS } = CONSTANTS;
 export default {
   name: "DetailsMeal",
   components: {
-    SkeletonLoader,
+    SkeletonMealDetailsCard,
+    SkeletonMealDetailsInfo,
     ListRender,
     MealDetailsCard,
     MealDetailsInfo,
@@ -118,24 +119,6 @@ h1 {
   color: var(--color-grandis);
 }
 
-.go-back {
-  display: flex;
-  margin-bottom: 1rem;
-
-  & .button-back {
-    display: flex;
-    align-items: center;
-    gap: 1%;
-    padding: 5px;
-    border: 2px solid var(--color-ferra);
-    border-radius: 7px;
-
-    & img {
-      filter: invert(20%) saturate(50%) sepia(100%);
-    }
-  }
-}
-
 .meal-section {
   display: flex;
   flex-direction: column;
@@ -176,7 +159,7 @@ h1 {
 
 @media screen and (width >=1200px) {
   .meal-section {
-    /* flex-direction: row; */
+    flex-direction: row;
   }
 }
 </style>
