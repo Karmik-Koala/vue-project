@@ -1,15 +1,15 @@
 <template>
   <FormHeader
     title="CREATE NEW ACCOUNT"
-    subtitle="we are glad to create your account with us"
+    subtitle="We are glad to create your account with us"
   />
-  <form action="" class="form">
+  <form class="form">
     <CustomInput name="email" type="email"/>
-    <CustomInput name="password1" type="password"/>
-    <CustomInput name="password2" type="password"/>
+    <CustomInput name="password" type="password"/>
+    <CustomInput name="repeat_password" type="password"/>
     <div class="button-group">
-      <BaseButton @click="goBack">GO BACK</BaseButton>
-      <BaseButton @click="signUp">SIGN UP</BaseButton>
+      <BaseButton @click.prevent="goBack">GO BACK</BaseButton>
+      <BaseButton @click.prevent="signUp">SIGN UP</BaseButton>
     </div>
   </form>
 </template>
@@ -25,13 +25,13 @@ import BaseButton from '../../../shared/components/BaseButton.vue';
 import { setAuth } from '../../utils/setAuth';
 
 const router = useRouter()
-const {values, errors } = useForm({
+const {values } = useForm({
   validationSchema: signOnValidationSchema
 })
 
 const signUp = async () => {
   try {
-    const { email, user: { uid, accessToken } } = await createUserWithEmailAndPassword(getAuth(), values.email, values.password1 )
+    const { email, user: { uid, accessToken } } = await createUserWithEmailAndPassword(getAuth(), values.email, values.password )
     setAuth(email, uid, accessToken)
     router.push('/')
   } catch (error) {
@@ -47,7 +47,7 @@ const goBack = () => {
 
 <style scoped>
   .form {
-    text-align: center;
+    /* text-align: center; */
 
     & * {
       margin-bottom: 1rem;
@@ -58,7 +58,14 @@ const goBack = () => {
     display: flex;
     justify-content: space-around;
   }
-@media screen and (width >=768px) {}
+@media screen and (width >=768px) {
+  .sign-up-msg {
+  text-align: right;
+}
+.form {
+  text-align: center;
+}
+}
 
 @media screen and (width >=1024px) {}
 

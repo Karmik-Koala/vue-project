@@ -1,13 +1,16 @@
 <template>
   <div class="form-group">
-    <label :for="name" v-beautify-text>{{ name }}</label>
-    <div class="input-and-tooltip">
-      <input v-model="value" :type="type || 'text'" :class="{inputError: errors.length}" class="input" />
+    <div class="info-group">
+      <label :for="name" class="label" v-beautify-text>{{ name }}</label>
       <BaseTooltip v-show="errors.length" class="error-tooltip">
         <ul v-if="errors.length">
-          <li v-for="error in errors" :key="error" :class="{error}">{{ error }}</li>
+          <li v-for="error in errors" :key="error" :class="{ error }">{{ error }}</li>
         </ul>
       </BaseTooltip>
+    </div>
+
+    <div class="input-and-error-group">
+      <input v-model="value" :type="type || 'text'" :class="{ inputError: errors.length }" class="input" />
       <div class="underneath-error-container">
         <span v-for="error in errors" :key="error" class="underneath-error-message">{{ error }}</span>
       </div>
@@ -24,40 +27,51 @@ const props = defineProps({
   type: String,
 });
 
-// The `name` is returned in a function because we want to make sure it stays reactive
-// If the name changes you want `useField` to be able to pick it up
 const { value, errors } = useField(() => props.name, undefined);
 </script>
 
 <style scoped>
 .form-group {
+  --input-error-background-color: #fce4e4;
+  --input-error-color: red;
   display: flex;
   flex-direction: column;
 }
 
-.input-and-tooltip {
+.input-and-error-group {
   display: flex;
   flex-direction: column;
 }
+
+.label {
+  margin-bottom: 5px;
+}
+
 .input {
   border-radius: 10px;
   padding: 3px;
 }
+
+.input:focus {
+  outline: none;
+}
+
 .inputError {
-    border: 1px solid red;
+  border: 1px solid var(--input-error-color);
+  background-color: var(--input-error-background-color);
 }
 
 .error {
-  color: red;
+  color: var(--input-error-color);
 }
 
-  .error-tooltip {
-    display: none;
-  }
+.error-tooltip {
+  display: none;
+}
 
 .underneath-error-message {
   font-size: var(--font-size-xxs);
-  color: red;
+  color: var(--input-error-color);
 }
 
 span {
@@ -65,12 +79,22 @@ span {
 }
 
 
-@media screen and (width >= 768px) {
+@media screen and (width >=768px) {
 
-  .input-and-tooltip {
-    flex-direction: row;
-      align-items: center;
+  .info-group {
+    display: flex;
   }
+
+  .form-group {
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .info-group > :nth-child(2) {
+    margin-left: auto;
+  }
+
   .error-tooltip {
     display: initial;
   }
@@ -79,13 +103,10 @@ span {
     display: none;
   }
 
-  .form-group {
-    display: flex;
-    justify-content: center;
+  .error {
+    color: white;
+    font-weight: bold;
 
   }
 }
-
-
-
 </style>

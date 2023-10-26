@@ -1,17 +1,18 @@
 <template>
-  <FormHeader title="CREATE NEW ACCOUNT" subtitle="we are glad to create your account with us" />
+  <FormHeader title="WELCOME" subtitle="We are glad to create your account with us" />
   <form action="" class="form">
-
     <CustomInput name="email" type="email"/>
     <CustomInput name="password" type="password"/>
-    <BaseButton @click="authUser" class="login-button">LOGIN</BaseButton>
+    <div class="login-button-wrapper">
+      <BaseButton @click.prevent="authUser" class="login-button">LOGIN</BaseButton>
+    </div>
   </form>
   <div class="socialmedia-auth-container">
     <GoogleLogin/>
     <GithubLogin/>
     <FacebookLogin/>
   </div>
-  <p class="sign-up-msg">Don't have an account <BaseButton @click="$emit('signUp')">SIGN UP</BaseButton></p>
+  <p class="sign-up-msg">Don't have an account? <BaseButton @click="$emit('signUp')">SIGN UP</BaseButton></p>
 </template>
 
 <script setup>
@@ -27,7 +28,7 @@ import FacebookLogin from '../../components/FacebookLogin.vue';
 import { setAuth } from '../../utils/setAuth';
 import { useRouter } from 'vue-router';
 
-const {values, errors} = useForm({
+const {values} = useForm({
   validationSchema: signInValidationSchema
 })
 
@@ -38,6 +39,7 @@ const authUser = async () => {
     const auth = getAuth()
     const {user: {accessToken, uid, email}} = await signInWithEmailAndPassword(auth, values.email, values.password)
     setAuth(email, uid, accessToken)
+      console.log(email, uid, accessToken);
     router.push('/')
   } catch (error) {
     alert(error)
@@ -50,6 +52,10 @@ defineEmits(['signUp'])
 
 <style scoped>
 
+.login-button-wrapper {
+  text-align: right;
+}
+
 .login-button {
   padding: 10px;
   width: 10rem;
@@ -59,10 +65,10 @@ defineEmits(['signUp'])
   display: flex;
   justify-content: space-around;
   margin-bottom: 2rem;
+  padding: 0 5rem;
 }
 
 .form {
-  text-align: center;
   margin-bottom: 2rem;
 
   & * {
@@ -71,12 +77,19 @@ defineEmits(['signUp'])
 }
 
 .sign-up-msg {
-  text-align: right;
+  text-align: left;
 }
 
 
 
-@media screen and (width >=768px) {}
+@media screen and (width >=768px) {
+  .sign-up-msg {
+  text-align: right;
+}
+.form {
+  text-align: center;
+}
+}
 
 @media screen and (width >=1024px) {}
 
