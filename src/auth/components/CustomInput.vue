@@ -1,6 +1,6 @@
 <template>
   <div class="form-group">
-    <label :for="name"></label>
+    <label :for="name" v-beautify-text>{{ name }}</label>
     <div class="input-and-tooltip">
       <input v-model="value" :type="type || 'text'" :class="{inputError: errors.length}" class="input" />
       <BaseTooltip v-show="errors.length" class="error-tooltip">
@@ -30,6 +30,10 @@ const { value, errors } = useField(() => props.name, undefined);
 </script>
 
 <style scoped>
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
 
 .input-and-tooltip {
   display: flex;
