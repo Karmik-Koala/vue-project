@@ -1,46 +1,53 @@
 <template>
-    <FormHeader title="ACCOUNT RECOVERY" subtitle="You're so forgetful..."/>
-    <form  class="form"></form>
-    <p class="recovery-message">Enter your email address, and we will send you instructions to recover your account.</p>
-    <div class="recovery-group">
-      <CustomInput name="email" type="email"/>
-      <div class="button-group">
-        <BaseButton @click.prevent="goToSignIn">GO BACK</BaseButton>
-        <BaseButton @click.prevent="resetPassword" :disabled="Object.keys(errors).length || !values.email">SEND</BaseButton>
-      </div>
+  <FormHeader title="ACCOUNT RECOVERY" subtitle="You're so forgetful..." />
+  <form class="form"></form>
+  <p class="recovery-message">
+    Enter your email address, and we will send you instructions to recover your
+    account.
+  </p>
+  <div class="recovery-group">
+    <CustomInput name="email" type="email" />
+    <div class="button-group">
+      <BaseButton @click.prevent="goToSignIn">GO BACK</BaseButton>
+      <BaseButton
+        @click.prevent="resetPassword"
+        :disabled="Object.keys(errors).length || !values.email"
+        >SEND</BaseButton
+      >
     </div>
-
+  </div>
 </template>
 
 <script setup>
 import { useForm } from "vee-validate";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import CustomInput from "../../components/CustomInput.vue";
-import { passwordRecoveryValidationSchema } from '../schemas/passwordRecovery.scheme'
+import { passwordRecoveryValidationSchema } from "../schemas/passwordRecovery.scheme";
 import FormHeader from "../../components/FormHeader.vue";
 import BaseButton from "../../../shared/components/BaseButton.vue";
 import { SIGN_IN_FORM } from "../constants/formTypes";
 
-
-const emit = defineEmits(['display-form'])
-const {values, errors} = useForm({
-  validationSchema: passwordRecoveryValidationSchema
-})
+const emit = defineEmits(["display-form"]);
+const { values, errors } = useForm({
+  validationSchema: passwordRecoveryValidationSchema,
+});
 
 const resetPassword = () => {
   sendPasswordResetEmail(getAuth(), values.email)
-    .then(() => alert('mail enviado'), () => alert('error envio'))
-    .then(() => emit('display-form', SIGN_IN_FORM))
+    .then(
+      () => alert("mail enviado"),
+      () => alert("error envio"),
+    )
+    .then(() => emit("display-form", SIGN_IN_FORM));
 };
 
 const goToSignIn = () => {
-  emit('display-form', SIGN_IN_FORM)
-}
+  emit("display-form", SIGN_IN_FORM);
+};
 </script>
 
 <style scoped>
 .form {
-
   & * {
     margin-bottom: 1rem;
   }
@@ -59,13 +66,12 @@ const goToSignIn = () => {
   display: flex;
   gap: 1rem;
   flex-direction: column;
-
 }
 
 @media screen and (width >=768px) {
   .recovery-group {
-  display: flex;
-}
+    display: flex;
+  }
   .sign-up-msg {
     text-align: right;
   }
@@ -75,8 +81,12 @@ const goToSignIn = () => {
   }
 }
 
-@media screen and (width >=1024px) {}
+@media screen and (width >=1024px) {
+}
 
-@media screen and (width >=1200px) {}
+@media screen and (width >=1200px) {
+}
 
-@media screen and (width >=2560px) {}</style>
+@media screen and (width >=2560px) {
+}
+</style>

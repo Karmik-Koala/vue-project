@@ -6,20 +6,19 @@
 
 <script>
 export default {
-  name: 'BaseButton',
+  name: "BaseButton",
   props: {
     type: {
-      default: 'submit',
-      type: String
+      default: "submit",
+      type: String,
     },
     isDisabled: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  emits: ['clicked'],
-
-}
+  emits: ["clicked"],
+};
 </script>
 
 <style scoped>
@@ -36,12 +35,13 @@ export default {
     background-color: var(--color-salmon);
     cursor: pointer;
     color: var(--color-white);
-    transition: all 0.3s ease 0s, left 0.3s ease 0s;
+    transition:
+      all 0.3s ease 0s,
+      left 0.3s ease 0s;
   }
 
-  &:disabled{
+  &:disabled {
     background-color: rgb(179, 172, 172);
-    
   }
 }
 </style>

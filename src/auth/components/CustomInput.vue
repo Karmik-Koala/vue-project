@@ -1,26 +1,38 @@
 <template>
   <div class="form-group">
     <div class="info-group">
-      <label :for="name" class="label" v-beautify-text>{{ name }}</label>
+      <label v-beautify-text :for="name" class="label">{{ name }}</label>
       <BaseTooltip v-show="errors.length" class="error-tooltip">
         <ul v-if="errors.length">
-          <li v-for="error in errors" :key="error" :class="{ error }">{{ error }}</li>
+          <li v-for="error in errors" :key="error" :class="{ error }">
+            {{ error }}
+          </li>
         </ul>
       </BaseTooltip>
     </div>
 
     <div class="input-and-error-group">
-      <input v-model="value" :type="type || 'text'" :class="{ inputError: errors.length }" class="input" />
+      <input
+        v-model="value"
+        :type="type || 'text'"
+        :class="{ inputError: errors.length }"
+        class="input"
+      />
       <div class="underneath-error-container">
-        <span v-for="error in errors" :key="error" class="underneath-error-message">{{ error }}</span>
+        <span
+          v-for="error in errors"
+          :key="error"
+          class="underneath-error-message"
+          >{{ error }}</span
+        >
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { useField } from 'vee-validate';
-import BaseTooltip from '../../shared/components/BaseTooltip.vue'
+import { useField } from "vee-validate";
+import BaseTooltip from "../../shared/components/BaseTooltip.vue";
 
 const props = defineProps({
   name: String,
@@ -79,9 +91,7 @@ span {
   display: block;
 }
 
-
 @media screen and (width >=768px) {
-
   .info-group {
     display: flex;
   }
@@ -107,7 +117,6 @@ span {
   .error {
     color: white;
     font-weight: bold;
-
   }
 }
 </style>

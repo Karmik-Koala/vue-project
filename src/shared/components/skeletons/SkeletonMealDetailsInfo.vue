@@ -5,8 +5,7 @@
     <div class="ingredients loading"></div>
     <h2 class="loading"></h2>
     <div class="process loading"></div>
-    <div class="meal-tags loading">
-    </div>
+    <div class="meal-tags loading"></div>
   </div>
 </template>
 

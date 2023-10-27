@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:wght@300;400;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:wght@300;400;900&display=swap");
 
-:root{
+:root {
   --color-grandis: #ffd68b;
   --color-white-rock: #e5e3cb;
   --color-faded-jade: #428b8b;
@@ -14,8 +14,8 @@
   --color-gray: #e2e2e2;
   --color-gray-light: #f0f0f0;
   --color-black: #000;
-  --font-family-roboto: 'Roboto', sans-serif;
-  --font-family-archivo-black: 'Archivo Black', sans-serif;
+  --font-family-roboto: "Roboto", sans-serif;
+  --font-family-archivo-black: "Archivo Black", sans-serif;
   --font-size-xxs: 0.75rem;
   --font-size-xs: 1rem;
   --font-size-sm: 1.1rem;
@@ -33,10 +33,14 @@
   --slider-element-heigth: 300px;
 }
 
-@media screen and (width >=768px) {}
+@media screen and (width >=768px) {
+}
 
-@media screen and (width >=1024px) {}
+@media screen and (width >=1024px) {
+}
 
-@media screen and (width >=1200px) {}
+@media screen and (width >=1200px) {
+}
 
-@media screen and (width >=2560px) {}
+@media screen and (width >=2560px) {
+}

@@ -3,8 +3,18 @@
     <h1>{{ info.recipe.label }}</h1>
     <h2>Ingredients list</h2>
     <div v-if="!timePrepZero" class="prep-time">
-      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alarm" width="24" height="24"
-        viewBox="0 0 24 24" stroke-width="2" stroke="#686868" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="icon icon-tabler icon-tabler-alarm"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="#686868"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         <path d="M12 13m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
         <path d="M12 10l0 3l2 0" />
@@ -16,7 +26,10 @@
       </p>
     </div>
     <div class="ingredients">
-      <p v-for="(ingredient, index) in info.recipe.ingredientLines" :key="index">
+      <p
+        v-for="(ingredient, index) in info.recipe.ingredientLines"
+        :key="index"
+      >
         - {{ ingredient }}
       </p>
     </div>
@@ -50,12 +63,24 @@
       </p>
     </div>
     <div class="meal-tags">
-      <span v-for="(type, index) in info.recipe.mealType" :key="index" class="meal-type tag">{{ type.toUpperCase()
-      }}</span>
-      <span v-for="(type, index) in info.recipe.cuisineType" :key="index" class="cuisine-type tag">{{ type.toUpperCase()
-      }}</span>
-      <span v-for="(label, index) in info.recipe.dietLabels" :key="index" class="diet-label tag">{{ label.toUpperCase()
-      }}</span>
+      <span
+        v-for="(type, index) in info.recipe.mealType"
+        :key="index"
+        class="meal-type tag"
+        >{{ type.toUpperCase() }}</span
+      >
+      <span
+        v-for="(type, index) in info.recipe.cuisineType"
+        :key="index"
+        class="cuisine-type tag"
+        >{{ type.toUpperCase() }}</span
+      >
+      <span
+        v-for="(label, index) in info.recipe.dietLabels"
+        :key="index"
+        class="diet-label tag"
+        >{{ label.toUpperCase() }}</span
+      >
     </div>
   </div>
 </template>
