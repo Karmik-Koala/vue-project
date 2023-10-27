@@ -23,4 +23,9 @@ export const routes = [
     component: () => import("../pages/FavoritesMeals.vue"),
     meta: { requiresAuth: true },
   },
+  {
+    path: "/:catchAll(.*)",
+    name: "error",
+    component: import("../pages/Error404.vue"),
+  },
 ];
