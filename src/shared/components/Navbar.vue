@@ -51,6 +51,10 @@ export default {
       logoPath: Logo,
       routes: [
         {
+          label: "Home",
+          path: "/",
+        },
+        {
           label: "Favorites",
           path: "/favorites",
         },
