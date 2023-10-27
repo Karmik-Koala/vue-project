@@ -39,7 +39,6 @@ import { RouterLink } from "vue-router";
 import { mapState, mapActions } from "pinia";
 import Logo from "@/assets/images/logo-app.webp";
 import { useAuthStore } from "../../auth/stores/authStore";
-import { normalizeRules } from "vee-validate";
 
 export default {
   name: "NavbarComponent",
