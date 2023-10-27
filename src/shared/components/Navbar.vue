@@ -68,7 +68,7 @@ export default {
     ...mapActions(useAuthStore, ["setAccessToken", "setUser"]),
     logout() {
       this.setAccessToken(null);
-      this.setUser(null)
+      this.setUser(null);
       this.$router.push("/");
     },
   },
@@ -88,11 +88,15 @@ export default {
   box-sizing: border-box;
   background-color: var(--color-faded-jade);
   font-size: var(--font-size-xs);
-  padding: 0 30px;
+  padding: 0;
   border-top: 6px solid var(--color-grandis);
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  & .navbar-container {
+    padding: 20px;
+  }
 
   & .container-logo {
     display: flex;
