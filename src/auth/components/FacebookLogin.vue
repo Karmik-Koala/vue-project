@@ -1,32 +1,32 @@
 <template>
-  <button @click="loginFacebook" class="social-login-button">
-    <img src="facebook-icon.png" alt="" srcset="">
+  <button class="social-login-button" @click="loginFacebook">
+    <img :src="FacebookIcon" alt="facebook icon" />
   </button>
 </template>
 
 <script setup>
-import { FacebookAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
-import { setAuth } from '../utils/setAuth';
-import { useRouter } from 'vue-router';
+import { FacebookAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
+import { setAuth } from "../utils/setAuth";
+import { useRouter } from "vue-router";
+import FacebookIcon from "@/assets/images/facebook-icon.png";
 
-const googleProvider = new FacebookAuthProvider()
+const googleProvider = new FacebookAuthProvider();
 const auth = getAuth();
-const router = useRouter()
+const router = useRouter();
 
 const loginFacebook = async () => {
   try {
-  const result = await signInWithPopup(auth, googleProvider);
+    const result = await signInWithPopup(auth, googleProvider);
     const {
       user: { email, uid, accessToken },
     } = result;
     FacebookAuthProvider.credentialFromResult(result);
-        setAuth(email, uid, accessToken)
-    router.push('/')
+    setAuth(email, uid, accessToken);
+    router.push("/");
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
-
+};
 </script>
 
 <style scoped>

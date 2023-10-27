@@ -1,17 +1,18 @@
 <template>
-  <button @click="loginGithub" class="social-login-button">
-    <img src="github-icon.png" alt="" srcset="">
+  <button class="social-login-button" @click="loginGithub">
+    <img :src="GithubIcon" alt="github icon" />
   </button>
 </template>
 
 <script setup>
-import { GithubAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
-import { setAuth } from '../utils/setAuth';
-import { useRouter } from 'vue-router';
+import { GithubAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
+import { setAuth } from "../utils/setAuth";
+import { useRouter } from "vue-router";
+import GithubIcon from "@/assets/images/github-icon.png";
 
 const githubProvider = new GithubAuthProvider();
 const auth = getAuth();
-const router = useRouter()
+const router = useRouter();
 
 const loginGithub = async () => {
   try {
@@ -20,14 +21,13 @@ const loginGithub = async () => {
       user: { email, uid, accessToken },
     } = result;
     GithubAuthProvider.credentialFromResult(result);
-      setAuth(email, uid, accessToken)
-      router.push('/')
+    setAuth(email, uid, accessToken);
+    router.push("/");
   } catch (error) {
     console.log(error);
     alert("github failed");
   }
-}
-
+};
 </script>
 
 <style scoped>

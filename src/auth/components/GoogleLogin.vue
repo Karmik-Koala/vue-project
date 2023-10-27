@@ -1,32 +1,32 @@
 <template>
-  <button @click="loginGoogle" class="social-login-button">
-    <img src="google-icon.png" alt="" srcset="">
+  <button class="social-login-button" @click="loginGoogle">
+    <img :src="GoogleIcon" alt="google icon" />
   </button>
 </template>
 
 <script setup>
-import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
-import { setAuth } from '../utils/setAuth';
-import { useRouter } from 'vue-router';
-const googleProvider = new GoogleAuthProvider()
+import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
+import { setAuth } from "../utils/setAuth";
+import { useRouter } from "vue-router";
+import GoogleIcon from "@/assets/images/google-icon.png";
+
+const googleProvider = new GoogleAuthProvider();
 const auth = getAuth();
-const router = useRouter()
+const router = useRouter();
 
 const loginGoogle = async () => {
-  
   try {
     const result = await signInWithPopup(auth, googleProvider);
     const {
       user: { email, uid, accessToken },
     } = result;
     GoogleAuthProvider.credentialFromResult(result);
-    setAuth(email, uid, accessToken)
-    router.push('/')
+    setAuth(email, uid, accessToken);
+    router.push("/");
   } catch (error) {
     alert("google login failed");
   }
-}
-
+};
 </script>
 
 <style scoped>
