@@ -96,7 +96,6 @@ export const createFavoriteMeal = async (meal) => {
   const favoritesRef = collection(db, "favorites");
   try {
     await addDoc(favoritesRef, meal);
-    console.log("Meals agregado a la base de datos");
   } catch (error) {
     console.error("Error al agregar meals:", error);
   }

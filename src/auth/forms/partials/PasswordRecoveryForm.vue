@@ -1,32 +1,82 @@
 <template>
-  <div>
-    <h2>Recuperación de Correo</h2>
-    <p>Ingresa tu correo electrónico y te enviaremos instrucciones para recuperar tu cuenta.</p>
-    <CustomInput name="email" type="email"/>
-    <button @click="fnAlert">Recuperar Contraseña</button>
-  </div>
+    <FormHeader title="ACCOUNT RECOVERY" subtitle="You're so forgetful..."/>
+    <form  class="form"></form>
+    <p class="recovery-message">Enter your email address, and we will send you instructions to recover your account.</p>
+    <div class="recovery-group">
+      <CustomInput name="email" type="email"/>
+      <div class="button-group">
+        <BaseButton @click.prevent="goToSignIn">GO BACK</BaseButton>
+        <BaseButton @click.prevent="resetPassword" :disabled="Object.keys(errors).length || !values.email">SEND</BaseButton>
+      </div>
+    </div>
+
 </template>
 
 <script setup>
-import { projectAuth } from "@/firebase/config";
 import { useForm } from "vee-validate";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import CustomInput from "../../components/CustomInput.vue";
 import { passwordRecoveryValidationSchema } from '../schemas/passwordRecovery.scheme'
+import FormHeader from "../../components/FormHeader.vue";
+import BaseButton from "../../../shared/components/BaseButton.vue";
+import { SIGN_IN_FORM } from "../constants/formTypes";
 
-const {values} = useForm({
+
+const emit = defineEmits(['display-form'])
+const {values, errors} = useForm({
   validationSchema: passwordRecoveryValidationSchema
 })
 
-const fnAlert = () => alert('hola')
 const resetPassword = () => {
-  projectAuth
-    .sendPasswordResetEmail(values.email)
-    .then(() => {
-      alert("Se han enviado instrucciones a tu correo electrónico.");
-    })
-    .catch((error) => {
-      console.error(error.message);
-      alert("Ha ocurrido un error. Verifica tu dirección de correo electrónico.");
-    });
+  sendPasswordResetEmail(getAuth(), values.email)
+    .then(() => alert('mail enviado'), () => alert('error envio'))
+    .then(() => emit('display-form', SIGN_IN_FORM))
 };
+
+const goToSignIn = () => {
+  emit('display-form', SIGN_IN_FORM)
+}
 </script>
+
+<style scoped>
+.form {
+
+  & * {
+    margin-bottom: 1rem;
+  }
+}
+
+.recovery-message {
+  margin-bottom: 1rem;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-around;
+}
+
+.recovery-group {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+
+}
+
+@media screen and (width >=768px) {
+  .recovery-group {
+  display: flex;
+}
+  .sign-up-msg {
+    text-align: right;
+  }
+
+  .form {
+    text-align: center;
+  }
+}
+
+@media screen and (width >=1024px) {}
+
+@media screen and (width >=1200px) {}
+
+@media screen and (width >=2560px) {}</style>

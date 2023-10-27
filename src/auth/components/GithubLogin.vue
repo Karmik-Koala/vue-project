@@ -7,10 +7,11 @@
 <script setup>
 import { GithubAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
 import { setAuth } from '../utils/setAuth';
+import { useRouter } from 'vue-router';
 
 const githubProvider = new GithubAuthProvider();
 const auth = getAuth();
-
+const router = useRouter()
 
 const loginGithub = async () => {
   try {
@@ -19,10 +20,8 @@ const loginGithub = async () => {
       user: { email, uid, accessToken },
     } = result;
     GithubAuthProvider.credentialFromResult(result);
-        setAuth(email, uid, accessToken)
-    // this.setAccessToken(idToken);
-    // this.setUser({ email, uid });
-    // this.$router.push("/");
+      setAuth(email, uid, accessToken)
+      router.push('/')
   } catch (error) {
     console.log(error);
     alert("github failed");

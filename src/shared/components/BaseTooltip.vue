@@ -35,6 +35,7 @@ export default {
 
 <style scoped>
 .tooltip-container{
+  --tooltip-background-color: var(--color-ferra-light);
   position: relative;
 }
 
@@ -50,7 +51,7 @@ export default {
 }
 .tooltip {
   position: absolute;
-  background-color: #333;
+  background-color: var(--tooltip-background-color);
   padding: 10px;
   border-radius: 5px;
   top: 0;
