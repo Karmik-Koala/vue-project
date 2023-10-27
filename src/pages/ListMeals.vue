@@ -68,6 +68,7 @@ export default {
     async listMeals() {
       this.showNotData = false;
       this.loading = true;
+      this.meals = [];
 
       this.setLastSearch(this.filters[FILTERS.SEARCH]);
 
@@ -85,7 +86,7 @@ export default {
         totalNutrients: item.recipe.totalNutrients,
         id: item._links.self.href.slice(
           API.BASE_URL.length + 1,
-          item._links.self.href.indexOf("?type"),
+          item._links.self.href.indexOf("?type")
         ),
       }));
 
