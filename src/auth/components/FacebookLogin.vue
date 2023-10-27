@@ -23,7 +23,6 @@ const loginFacebook = async () => {
         setAuth(email, uid, accessToken)
     router.push('/')
   } catch (error) {
-    alert("google login failed");
     console.log(error)
   }
 }

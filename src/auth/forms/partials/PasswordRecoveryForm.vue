@@ -5,8 +5,8 @@
     <div class="recovery-group">
       <CustomInput name="email" type="email"/>
       <div class="button-group">
-        <BaseButton @click.prevent="resetPassword" :disabled="Object.keys(errors).length || !values.email">SEND</BaseButton>
         <BaseButton @click.prevent="goToSignIn">GO BACK</BaseButton>
+        <BaseButton @click.prevent="resetPassword" :disabled="Object.keys(errors).length || !values.email">SEND</BaseButton>
       </div>
     </div>
 
@@ -60,10 +60,6 @@ const goToSignIn = () => {
   gap: 1rem;
   flex-direction: column;
 
-}
-
-.recovery-group > :nth-child(2) {
-  margin-left: auto;
 }
 
 @media screen and (width >=768px) {

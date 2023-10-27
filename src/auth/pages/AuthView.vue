@@ -1,14 +1,10 @@
 <template>
   <div class="login-container">
-    <div class="form-container">
-      <!-- <SignInForm   @display-form="displayForm"/>
-      <SignUpForm  @display-form="displayForm"/>
-      <PasswordRecoveryForm  @display-form="displayForm"/> -->
-
+      <div class="form-container">
         <SignInForm v-if="displayForm === 'sign-in'"  @display-form="displayFormEvent"/>
         <SignUpForm v-if="displayForm === 'sign-on'"  @display-form="displayFormEvent"/>
         <PasswordRecoveryForm v-if="displayForm === 'recovery'" @display-form="displayFormEvent"/>
-    </div>
+      </div>
     <div class="image-container">
       <img src="/logo-app.webp" alt="">
     </div>
@@ -19,7 +15,6 @@
   import SignInForm from '../forms/partials/SignInForm.vue'
   import SignUpForm from '../forms/partials/SignUpForm.vue'
   import PasswordRecoveryForm from '../forms/partials/PasswordRecoveryForm.vue'
-  import { SIGN_IN_FORM, RECOVERY_FORM, SIGN_ON_FORM } from '../forms/constants/formTypes';
 
   export default {
     name: 'AuthView',
@@ -81,4 +76,6 @@
 @media screen and (width >=1200px) {}
 
 @media screen and (width >=2560px) {}
+
+
 </style>
