@@ -58,11 +58,14 @@ const { value, errors } = useField(() => props.name, undefined);
 
 .label {
   margin-bottom: 5px;
+  font-family: var(--font-family-roboto);
 }
 
 .input {
-  border-radius: 10px;
-  padding: 3px;
+  border-radius: 45px;
+  padding: 10px 20px;
+  background-color: var(--color-gray);
+  border: 0;
 }
 
 .input:focus {

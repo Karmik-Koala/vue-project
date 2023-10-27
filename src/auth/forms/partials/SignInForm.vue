@@ -6,16 +6,16 @@
   <form action="" class="form">
     <CustomInput name="email" type="email" />
     <CustomInput name="password" type="password" />
-    <div class="login-button-wrapper">
-      <BaseButton
-        @click.prevent="authUser"
-        class="login-button"
-        :disabled="
-          Object.keys(errors).length || !values.email || !values.password
-        "
-        >LOGIN</BaseButton
-      >
-    </div>
+    <BaseButton
+      class="login-button"
+      :disabled="
+        Object.keys(errors).length || !values.email || !values.password
+      "
+      @click.prevent="authUser"
+      >LOGIN</BaseButton
+    >
+    <!-- <div class="login-button-wrapper">
+    </div> -->
   </form>
   <div class="socialmedia-auth-container">
     <GoogleLogin />
