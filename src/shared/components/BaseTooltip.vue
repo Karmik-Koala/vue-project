@@ -1,7 +1,7 @@
 <template>
   <div class="tooltip-container">
-    <div @mouseenter="show" @mouseleave="hide" class="icon-info-container">
-      <img src="info-icon.svg" alt="" srcset="">
+    <div class="icon-info-container" @mouseenter="show" @mouseleave="hide">
+      <img :src="InfoIcon" alt="info icon" />
     </div>
     <div v-show="isVisible" class="tooltip">
       <slot></slot>
@@ -11,6 +11,7 @@
 
 <script>
 import { ref } from "vue";
+import InfoIcon from "@/assets/images/info-icon.svg";
 
 export default {
   setup() {
@@ -28,13 +29,14 @@ export default {
       isVisible,
       show,
       hide,
+      InfoIcon,
     };
   },
 };
 </script>
 
 <style scoped>
-.tooltip-container{
+.tooltip-container {
   --tooltip-background-color: var(--color-ferra-light);
   position: relative;
 }
