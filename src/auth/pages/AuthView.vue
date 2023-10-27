@@ -5,9 +5,9 @@
       <SignUpForm  @display-form="displayForm"/>
       <PasswordRecoveryForm  @display-form="displayForm"/> -->
 
-        <SignInForm v-if="currentForm === 'sign-in'"  @display-form="displayFormEvent"/>
-        <SignUpForm v-if="currentForm === 'sign-on'"  @display-form="displayFormEvent"/>
-        <PasswordRecoveryForm v-if="currentForm === 'recovery'" @display-form="displayFormEvent"/>
+        <SignInForm v-if="displayForm === 'sign-in'"  @display-form="displayFormEvent"/>
+        <SignUpForm v-if="displayForm === 'sign-on'"  @display-form="displayFormEvent"/>
+        <PasswordRecoveryForm v-if="displayForm === 'recovery'" @display-form="displayFormEvent"/>
     </div>
     <div class="image-container">
       <img src="/logo-app.webp" alt="">

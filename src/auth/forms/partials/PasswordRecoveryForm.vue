@@ -4,7 +4,10 @@
     <p class="recovery-message">Enter your email address, and we will send you instructions to recover your account.</p>
     <div class="recovery-group">
       <CustomInput name="email" type="email"/>
-      <BaseButton @click.prevent="resetPassword" :disabled="Object.keys(errors).length || !values.email">SEND</BaseButton>
+      <div class="button-group">
+        <BaseButton @click.prevent="resetPassword" :disabled="Object.keys(errors).length || !values.email">SEND</BaseButton>
+        <BaseButton @click.prevent="goToSignIn">GO BACK</BaseButton>
+      </div>
     </div>
 
 </template>
@@ -29,6 +32,10 @@ const resetPassword = () => {
     .then(() => alert('mail enviado'), () => alert('error envio'))
     .then(() => emit('display-form', SIGN_IN_FORM))
 };
+
+const goToSignIn = () => {
+  emit('display-form', SIGN_IN_FORM)
+}
 </script>
 
 <style scoped>
