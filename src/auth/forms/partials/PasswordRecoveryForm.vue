@@ -65,7 +65,6 @@ const goToSignIn = () => {
 @media screen and (width >=768px) {
   .recovery-group {
   display: flex;
-  align-items: end;
 }
   .sign-up-msg {
     text-align: right;

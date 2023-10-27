@@ -31,7 +31,7 @@ const loginFacebook = async () => {
 
 <style scoped>
 .social-login-button {
-  width: 50px;
+  width: 56px;
   border: none;
   border-style: none;
   border-width: 0;
